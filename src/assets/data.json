@@ -1,0 +1,13 @@
+{
+	"contact": {
+		"phone": "+34123456789"
+	},
+	"default": {
+		"user": {
+			"id": 0,
+			"name": "",
+			"email": "",
+			"token": null
+		}
+	}
+}

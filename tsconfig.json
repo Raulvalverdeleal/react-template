@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"module": "NodeNext",
+		"target": "ESNext",
+		"allowImportingTsExtensions": true,
+		"allowJs": true,
+		"jsx": "react-jsx",
+		"types": ["vite/client"],
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitAny": true,
+		"skipLibCheck": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"],
+			"@pages": ["./src/pages/index.tsx"],
+			"@types": ["./src/types/index.d.ts"],
+			"@utils": ["./src/utils/index.ts"],
+			"@components": ["./src/components/index.tsx"],
+			"@contexts": ["src/contexts/index.ts"],
+			"@styles": ["./src/styles/index.ts"],
+			"@services": ["./src/services/index.ts"],
+			"@core": ["./src/core/index.ts"],
+			"@assets": ["./src/assets/index.ts"],
+			"@hooks": ["./src/hooks/index.ts"]
+		},
+		"moduleResolution": "node16",
+		"resolveJsonModule": true,
+		"esModuleInterop": true
+	},
+	"include": ["src", "components"]
+}

@@ -1,55 +1,46 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { securedPages, Routes } from '@utils';
-import { user } from '@core';
-import { useEffect, useMemo } from 'react';
-import { PageMotion, PageWrapperProps, RoutesValue } from '@types';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Routes, Enviroment, Enviroments } from '@utils';
+import { useEffect } from 'react';
+import { PageWrapperProps } from '@types';
 import { motion as Motion } from 'framer-motion';
-import { useApp } from '@hooks';
+import { useLoading } from '@hooks';
+import { Card } from '../ui/card.tsx';
+import { Loader } from '../ui/loader.tsx';
+import { GlobalDialog } from '../ui/global-dialog.tsx';
 
-export function PageWrapper({ children }: PageWrapperProps) {
-	const { lastPage } = useApp();
-
-	const location = useLocation();
+export function PageWrapper({ children, secured }: PageWrapperProps) {
+	const loading = useLoading();
 	const navigate = useNavigate();
 
-	const page = useMemo(() => {
-		const pathName = location.pathname as RoutesValue;
-		const motion: PageMotion =
-			lastPage.current !== pathName
-				? {
-						initial: { opacity: 0 },
-						animate: { opacity: 1, x: 0 },
-						exit: { opacity: 0 },
-						transition: { duration: 0.1 },
-					}
-				: {};
-
-		return {
-			pathName,
-			motion,
-			name: location.pathname.substring(1),
-			isAuthorized: user.token || !securedPages.includes(pathName),
-		};
-	}, [location.pathname, user.token]); //eslint-disable-line react-hooks/exhaustive-deps
-
 	useEffect(() => {
-		if (!page.isAuthorized) {
-			console.warn(`Unauthorized user for ${location.pathname}`);
-			navigate(Routes.HOME);
-			// navigate(Routes.LOGIN)
-		}
-
-		document.body.setAttribute('data-page', page.name);
-
-		return () => {
-			document.body.removeAttribute('data-page');
-			lastPage.current = page.pathName;
+		window.onunhandledrejection = (event) => {
+			console.error('Unhandled rejection:', event.reason);
+			navigate(Routes.ERROR);
 		};
-	}, [location, user.token]); //eslint-disable-line react-hooks/exhaustive-deps
+		return () => {
+			window.onunhandledrejection = null;
+		};
+	}, []); //eslint-disable-line react-hooks/exhaustive-deps
 
-	return page.isAuthorized ? (
-		<Motion.main id={page.name} {...page.motion}>
-			{children}
+	return (
+		<Motion.main
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 0.1 }}
+			className={`${Enviroment === Enviroments.PRO ? 'w-full h-full' : 'p-5 h-[600px] w-[450px]'} relative`}
+		>
+			<Card className="w-full h-full min-h-[500px] min-w-[400px] overflow-scroll flex flex-col items-center justify-between gap-0 relative p-5 overflow-x-visible">
+				{(secured && true) /* required condition ex: user.authorized*/ || !secured ? (
+					<>
+						{children}
+						<Outlet />
+					</>
+				) : (
+					<Loader loading={loading.now} />
+				)}
+				<GlobalDialog />
+			</Card>
 		</Motion.main>
-	) : null;
+	);
 }

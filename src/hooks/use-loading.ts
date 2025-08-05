@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import { __ } from '@utils';
+import { useApp } from '@hooks';
 
-export function useLoading() {
-	const [loading, setLoading] = useState(0);
+export function useLoading(options?: { showToast: boolean }) {
+	const { loading, setLoading } = useApp();
 	const toastIds = useRef<Set<string | number>>(new Set());
 	const last = useRef(0);
 
 	function handleLoad() {
-		if (loading && last.current === 0) {
+		if (loading && last.current === 0 && options?.showToast) {
 			toastIds.current.add(toast.loading(__('Loading...')));
 		}
 		if (loading === 0) {
@@ -32,8 +33,8 @@ export function useLoading() {
 	}, []);
 
 	return {
-		start: () => setLoading((x) => x + 1),
-		end: () => setLoading((x) => Math.max(0, x - 1)),
+		start: () => setLoading((x: number) => x + 1),
+		end: () => setLoading((x: number) => Math.max(0, x - 1)),
 		now: loading !== 0,
 	};
 }

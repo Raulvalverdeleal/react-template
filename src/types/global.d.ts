@@ -3,6 +3,19 @@ import { translations } from '@assets';
 export type IconName =
 	| 0
 	| 'arrow-back'
+	| 'feather'
+	| 'chevron'
+	| 'scure-payment'
+	| 'mastercard'
+	| 'visa'
+	| 'not-found'
+	| 'whatsapp'
+	| 'call'
+	| 'mail'
+	| 'location'
+	| 'card'
+	| 'error'
+	| 'wrong-location'
 	| 'refresh'
 	| 'motion-arrow'
 	| 'menu'
@@ -18,17 +31,29 @@ export type IconName =
 	| 'linkedin'
 	| 'instagram'
 	| 'github'
+	| 'add'
+	| 'copy'
+	| 'check-circle'
+	| 'success'
+	| 'remove'
+	| 'ticket'
+	| 'contact'
+	| 'calendar'
+	| 'clock'
 	| 'error';
 
 export type DateFormats =
+	| 'YYYY-MM-DD'
 	| 'YYYY-MM'
 	| 'hh:mm A'
 	| 'hh:mm'
 	| 'DDD, DD MMM'
+	| "D MMM'YY · hh:mm"
 	| 'DDD, DD MMM / hh:mm h'
 	| 'MMMM YYYY'
 	| 'MMM YY'
 	| 'DDD'
+	| 'DDDD DD MMMM'
 	| "D MMM'YY";
 
 export type NumFormats = 'X€' | '0X';
@@ -86,3 +111,16 @@ export type BaseDialogData<K extends DialogView> = {
 export type DialogData = {
 	[K in DialogView]: BaseDialogData<K>;
 }[DialogView];
+
+export type CacheItem<T> = {
+	value: T;
+	expiresAt?: number;
+};
+
+export type TableSchema = {
+	[tableName: string]: unknown;
+};
+
+export type ServiceOptions = SuperFetchOptions & {
+	roots: Record<EnviromentsValue, string>;
+};

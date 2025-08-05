@@ -2,16 +2,24 @@ import { StateOptions } from '@types';
 
 export class State<T> {
 	#renderFunction?: () => void;
-	protected data: T;
+	private _data: T;
 	protected localStorageKey;
 	protected sessionStorageKey;
 	protected dataEffect;
 
 	constructor(data: T, options?: StateOptions) {
-		this.data = JSON.parse(JSON.stringify(data));
+		this._data = JSON.parse(JSON.stringify(data));
 		this.localStorageKey = options?.localStorageKey;
 		this.sessionStorageKey = options?.sessionStorageKey;
 		this.dataEffect = new Map();
+	}
+
+	get data() {
+		return this._data;
+	}
+
+	protected set data(data: T) {
+		this._data = data;
 	}
 
 	render() {
@@ -29,20 +37,18 @@ export class State<T> {
 	}
 
 	setData(data: Partial<T>) {
-		this.data = {
-			...this.data,
+		this._data = {
+			...this._data,
 			...data,
 		};
 
 		if (this.localStorageKey) {
-			localStorage.setItem(this.localStorageKey, JSON.stringify(this.data));
+			localStorage.setItem(this.localStorageKey, JSON.stringify(this._data));
 		}
 		if (this.sessionStorageKey) {
-			sessionStorage.setItem(this.sessionStorageKey, JSON.stringify(this.data));
+			sessionStorage.setItem(this.sessionStorageKey, JSON.stringify(this._data));
 		}
 
 		this.dataEffect.forEach((callback) => callback());
-
-		return this;
 	}
 }

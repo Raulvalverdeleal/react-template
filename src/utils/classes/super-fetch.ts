@@ -6,6 +6,7 @@ type SuperFetchOptions = {
 	logRequests?: boolean;
 	timeout?: number;
 	retries?: number;
+	headers?: { [key: string]: string };
 };
 
 type RequestOptions = {
@@ -18,19 +19,17 @@ type RequestOptions = {
 export class SuperFetch {
 	#token: string | null;
 	#root: string;
-	#basePath: string;
 	#logRequests: boolean;
 	#defaultTimeout: number;
 	#defaultRetries: number;
 	#controllers: Map<string, AbortController>;
 
-	constructor(root: string, basePath?: string, options: SuperFetchOptions = {}) {
+	constructor(root: string, options: SuperFetchOptions = {}) {
 		if (!root || typeof root !== 'string' || !/^https?:\/\//.test(root)) {
 			throw new Error("Invalid 'root' URL provided.");
 		}
 
 		this.#root = root;
-		this.#basePath = basePath || '';
 		this.#token = options.token || null;
 		this.#logRequests = options.logRequests || false;
 		this.#defaultTimeout = options.timeout || 0;
@@ -41,10 +40,10 @@ export class SuperFetch {
 	async #request(
 		method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
 		path: string,
-		data: object | string | null = null,
+		data: Record<string, string> | object | string | null = null,
 		opts: RequestOptions = {}
 	) {
-		const url = this.#buildUrl(path, method === 'GET' ? (data as object | null) : null);
+		const url = this.#buildUrl(path, method === 'GET' ? (data as Record<string, string>) : null);
 		const controller = this.#createAbortController(`${method}::${path}`);
 		const timeoutMs = opts.timeout ?? this.#defaultTimeout;
 		const attempts = 1 + (opts.retries ?? this.#defaultRetries);
@@ -90,7 +89,7 @@ export class SuperFetch {
 				if (response.status === 401) {
 					localStorage.clear();
 					window.location.reload();
-					throw new Error(__('Unauthorized user'));
+					throw new Error(__('Unauthorized'));
 				}
 
 				clearTimeout(timeoutId);
@@ -145,18 +144,13 @@ export class SuperFetch {
 		return this.#request('DELETE', path, null, opts);
 	}
 
-	#buildUrl(path: string, params?: object | null): string {
-		const url = new URL(`${this.#basePath}${path}`, this.#root);
-		if (params && typeof params === 'object') {
-			Object.entries(params).forEach(([key, value]) => {
-				if (Array.isArray(value)) {
-					value.forEach((val) => url.searchParams.append(key, val));
-				} else {
-					url.searchParams.append(key, value);
-				}
-			});
+	#buildUrl(path: string, params?: Record<string, string> | string | null): string {
+		let url = `${this.#root}${path}`;
+		if (params) {
+			const queryString = new URLSearchParams(params).toString();
+			if (queryString) url += `?${queryString}`;
 		}
-		return url.toString();
+		return url;
 	}
 
 	abort(key: string): void {
@@ -189,17 +183,21 @@ export class SuperFetch {
 	): void {
 		if (!this.#logRequests && !forceLog) return;
 		console.log(
-			`${method} ${this.#basePath}${path} | Status: ${status} | Attempt: ${attempt + 1} | Duration: ${Math.round(performance.now() - startTime)}ms`
+			`${method} ${path} | Status: ${status} | Attempt: ${attempt + 1} | Duration: ${Math.round(performance.now() - startTime)}ms`
 		);
 	}
 
-	protected async fake<T>(data?: T, ms?: number | undefined): BaseResponse<T> {
-		const error = Math.random() > 1; //change to 0.5 for random failure
-		return new Promise((resolve) => setTimeout(resolve, ms ?? 1000)).then(() => ({
+	protected async fake<T>(data?: T, ms?: number, errorThreshold?: number): BaseResponse<T> {
+		const error = Math.random() < (errorThreshold ?? 0); //change to 0.5 for random failure
+		const response = {
 			result: error ? 'nok' : 'ok',
 			message: error ? 'error' : 'success',
 			...(data || {}),
-		}));
+		} as Awaited<BaseResponse<T>>;
+		if (this.#logRequests) {
+			console.log('FAKE FETCH', response);
+		}
+		return new Promise((resolve) => setTimeout(resolve, ms ?? 500)).then(() => response);
 	}
 
 	set token(value: string | null) {

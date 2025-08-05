@@ -1,6 +1,7 @@
 {
 	"contact": {
-		"phone": "+34123456789"
+		"phone": "+34123456789",
+		"email": "test@test.test"
 	},
 	"default": {
 		"user": {
@@ -8,6 +9,23 @@
 			"name": "",
 			"email": "",
 			"token": null
+		},
+		"booking": {
+			"locator": "",
+			"date": null,
+			"shift": null,
+			"amount": 0,
+			"lines": [],
+			"name": "",
+			"email": "",
+			"step": "date",
+			"acceptTerms": false
 		}
-	}
+	},
+	"stepsOrder": [
+		"date",
+		"shift",
+		"products",
+		"payment"
+	]
 }

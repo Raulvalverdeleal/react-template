@@ -1,10 +1,10 @@
 import { Routes as RoutesContainer, Route, useLocation } from 'react-router-dom';
-import { PageWrapper, HomePage, GlobalDialog } from '@components';
+import { PageWrapper, HomePage, GlobalDialog, ErrorBoundary, ErrorPage } from '@components';
 import { Routes } from '@utils';
 import { Toaster } from 'sonner';
 import { AnimatePresence } from 'framer-motion';
 
-export function App() {
+export function ReactTemplate() {
 	const location = useLocation();
 
 	return (
@@ -19,10 +19,26 @@ export function App() {
 							</PageWrapper>
 						}
 					/>
+					<Route
+						path={Routes.ERROR}
+						element={
+							<PageWrapper>
+								<ErrorPage />
+							</PageWrapper>
+						}
+					/>
 				</RoutesContainer>
 			</AnimatePresence>
 			<Toaster position="bottom-center" />
 			<GlobalDialog />
 		</>
+	);
+}
+
+export function App() {
+	return (
+		<ErrorBoundary fallback={<ErrorPage />}>
+			<ReactTemplate />
+		</ErrorBoundary>
 	);
 }

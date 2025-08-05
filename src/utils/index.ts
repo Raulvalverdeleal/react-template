@@ -1,4 +1,5 @@
 export * from '@/utils/enums.ts';
+export * from '@/utils/classes/cache-manager.ts';
 export * from '@/utils/helpers.ts';
 export * from '@/utils/classes/intervals-handler.ts';
 export * from '@/utils/classes/timeouts-handler.ts';

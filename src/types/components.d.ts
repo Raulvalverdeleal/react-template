@@ -9,7 +9,8 @@ export type AppProviderProps = {
 };
 
 export type PageWrapperProps = {
-	children: ReactNode;
+	secured?: boolean;
+	children?: ReactNode;
 };
 
 export type IconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'name'> & {
@@ -33,3 +34,12 @@ export type CalendarRootProps = React.HTMLAttributes<HTMLDivElement> & {
 export type CalendarChevronProps = React.HTMLAttributes<SVGElement> & {
 	orientation?: 'up' | 'down' | 'left' | 'right';
 };
+
+export type FormStepControlsProps = {
+	steps: FormStep[];
+	current: number;
+	disabled: ((order: number) => boolean)[];
+	onStepClick: (step: number) => unknown;
+};
+
+export type LoaderProps = { loading: boolean };

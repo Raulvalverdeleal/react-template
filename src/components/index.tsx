@@ -6,11 +6,15 @@ export { PageWrapper } from '@/components/layout/page-wrapper.tsx';
 
 // pages
 export { HomePage } from '@/components/pages/home-page.tsx';
+export { ErrorPage } from '@/components/pages/error-page.tsx';
 
 // providers
 export { AppProvider } from '@/components/providers/app-provider.tsx';
 
 // ui
+export { ErrorBoundary } from '@/components/ui/error-boundary.tsx';
+export { Loader } from '@/components/ui/loader.tsx';
+export { FormStepControls } from '@/components/ui/form-step-controls.tsx';
 export { Accordion, AccordionItem, AccordionContent, AccordionTrigger } from '@/components/ui/accordion.tsx';
 export { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert.tsx';
 export { GlobalDialog } from '@/components/ui/global-dialog.tsx';

@@ -15,4 +15,5 @@ export enum StorageKeys {
 
 export enum Routes {
 	HOME = '/',
+	ERROR = '/error',
 }

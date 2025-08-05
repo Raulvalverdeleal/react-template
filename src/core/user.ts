@@ -23,7 +23,7 @@ export class User extends State<UserData> {
 		return this.data.email;
 	}
 
-	login(data: LoginResponse['user']) {
+	login(data: LoginResponse['data']) {
 		return this.setData(data);
 	}
 	clear() {

@@ -1,4 +1,4 @@
-import { translations } from '@assets';
+import { translations, defaultTranslations } from '@assets';
 import { TranslationKey } from '@types';
 
 export class Translator {
@@ -86,8 +86,12 @@ export class Translator {
 }
 
 export const fallbackLang = 'es';
-export const lang = document.querySelector('html')?.getAttribute('lang') ?? fallbackLang;
+export const lang =
+	new URLSearchParams(window.location.search).get('lang')?.toLocaleLowerCase() ??
+	document.querySelector('html')?.getAttribute('lang') ??
+	fallbackLang;
 
-export const translator = new Translator(translations, lang, fallbackLang);
+export const translator = new Translator(defaultTranslations, lang, fallbackLang);
+translator.mergeTranslations(translations[lang as keyof typeof translations]);
 
 export const __ = (str: TranslationKey, ...placeholders: (string | number)[]) => translator.get(str, ...placeholders);

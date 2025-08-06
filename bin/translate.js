@@ -3,7 +3,6 @@ import path from 'path';
 
 /**
  * KEY CONSIDERATIONS
- * - 1.0.2
  * - do not use any kind of expression inside translation strings, use placeholders instead.
  * - Comented translations will also be added to the output file.
  * - do not use translation codes, only translation itself as the key, ex:
@@ -16,7 +15,7 @@ const config = {
 	searchIn: 'src',
 	fileExtensions: ['ts', 'tsx'],
 	json: {
-		fileName: 'translations',
+		fileName: 'default-translations',
 		output: 'src/assets',
 	},
 	patterns: [

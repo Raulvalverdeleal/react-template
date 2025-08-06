@@ -1,7 +1,7 @@
 {
 	"name": "react-template",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -10,8 +10,8 @@
 		"preview": "vite preview",
 		"format": "npx prettier . --write",
 		"translate": "node bin/translate.js",
-		"deploy:pre": "VITE_APP_ENV=pre vite build && npm run translate && npm run pre:build && node bin/sftp.js -a put -l build -r /remote/test-html",
-		"deploy:pro": "VITE_APP_ENV=production vite build && node bin/branch.js && npm run translate && npm run pro:build && node bin/sftp.js -a put -l build -r /remote/html"
+		"deploy:pre": "VITE_APP_ENV=pre vite build && npm run translate node bin/sftp.js -a put -l build -r /remote/test-html",
+		"deploy:pro": "VITE_APP_ENV=production vite build && node bin/branch.js && npm run translate && node bin/sftp.js -a put -l build -r /remote/html"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.0.1",

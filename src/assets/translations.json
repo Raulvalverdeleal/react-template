@@ -1,8 +1,17 @@
 {
-	"An unexpected error has ocurred.": "An unexpected error has ocurred.",
-	"Loading...": "Loading...",
-	"React template": "React template",
-	"Sample error pop up": "Sample error pop up",
-	"Some error has occurred, please try again.": "Some error has occurred, please try again.",
-	"Unauthorized user": "Unauthorized user"
+	"es": {
+		"An unexpected error has ocurred.": "Ha ocurrido un error inesperado.",
+		"Call": "Llamar",
+		"Close": "Cerrar",
+		"Email": "Correo electrónico",
+		"Loading...": "Cargando...",
+		"Oops! Something went wrong.": "¡Ups! Algo salió mal.",
+		"Please contact us for more information.": "Por favor, contáctanos para más información.",
+		"React template": "Plantilla React",
+		"Sample error pop up": "Ejemplo de mensaje de error",
+		"Some error has occurred, please try again.": "Ha ocurrido un error, por favor intenta de nuevo.",
+		"Unauthorized": "No autorizado",
+		"Understood": "Entendido",
+		"Whatsapp": "Whatsapp"
+	}
 }

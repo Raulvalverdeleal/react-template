@@ -31,6 +31,7 @@ export default tseslint.config(
 			...reactHooks.configs.recommended.rules,
 			...reactRefresh.configs.recommended.rules,
 			'react/react-in-jsx-scope': 'off',
+			'react-hooks/exhaustive-deps': 'off',
 			'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 			'comma-dangle': [
 				'error',

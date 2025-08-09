@@ -10,8 +10,10 @@
 		"preview": "vite preview",
 		"format": "npx prettier . --write",
 		"translate": "node bin/translate.js",
-		"deploy:pre": "VITE_APP_ENV=pre vite build && npm run translate node bin/sftp.js -a put -l build -r /remote/test-html",
-		"deploy:pro": "VITE_APP_ENV=production vite build && node bin/branch.js && npm run translate && node bin/sftp.js -a put -l build -r /remote/html"
+		"build:pre": "npm run translate && dotenv -e .env.pre -- vite build",
+		"build:pro": "npm run translate && dotenv -e .env.pro -- vite build",
+		"deploy:pre": "npm run build:pre && node bin/sftp.js -a put -l build -r /pre/html",
+		"deploy:pro": "node bin/branch.js && npm run build:pro && node bin/sftp.js -a put -l build -r /pro/html"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.0.1",

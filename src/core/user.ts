@@ -1,4 +1,4 @@
-import { LoginResponse, StateOptions, UserData } from '@types';
+import { StateOptions, UserData } from '@types';
 import { State, load, StorageKeys, Storages } from '@utils';
 import { data } from '@assets';
 
@@ -23,9 +23,6 @@ export class User extends State<UserData> {
 		return this.data.email;
 	}
 
-	login(data: LoginResponse['data']) {
-		return this.setData(data);
-	}
 	clear() {
 		if (this.#options?.localStorageKey) localStorage.removeItem(this.#options.localStorageKey);
 		if (this.#options?.sessionStorageKey) localStorage.removeItem(this.#options.sessionStorageKey);

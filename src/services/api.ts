@@ -1,22 +1,17 @@
-import { ServiceOptions, LoginPayload, LoginResponse } from '@types';
-import { Enviroments, SuperFetch, Enviroment } from '@utils';
-import { fakeData } from '@assets';
+import { ServiceOptions, SamplePayload, SampleResponse } from '@types';
+import { Enviroments, SuperFetch, apiRoot, enviroment } from '@utils';
 
 export class Api extends SuperFetch {
 	constructor(options: ServiceOptions) {
-		super(options.roots[Enviroment], options);
+		super(options.root, options);
 	}
 
-	doSomething(_data: LoginPayload) {
-		return this.fake<LoginResponse>({ data: fakeData.user });
+	doSomething(data: SamplePayload) {
+		return this.fake<SampleResponse>({ bar: data.foo });
 	}
 }
 
 export const api = new Api({
-	logRequests: Enviroment !== Enviroments.PRO,
-	roots: {
-		[Enviroments.LOCAL]: 'http://localhost:3080/api-pre/widget',
-		[Enviroments.PRE]: 'https://rumba.cardamomo.com/api-pre/widget',
-		[Enviroments.PRO]: 'https://rumba.cardamomo.com/api/widget',
-	},
+	logRequests: enviroment !== Enviroments.PRO,
+	root: `${apiRoot}/my-app-router`,
 });

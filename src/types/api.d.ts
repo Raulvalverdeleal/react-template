@@ -1,10 +1,3 @@
-/**
- * type <EndpointName>Data = {...}
- * type <EndpointName>Response = {...}
- */
-
-import { UserData } from '@types';
-
 export type BaseResponse<T = object> = Promise<
 	| {
 			result: 'nok';
@@ -18,11 +11,10 @@ export type BaseResponse<T = object> = Promise<
 	  } & T)
 >;
 // ---
-export type LoginPayload = {
-	email: string;
-	password: string;
+export type SamplePayload = {
+	foo: string;
 };
-export type LoginResponse = {
-	data: UserData;
+export type SampleResponse = {
+	bar: string;
 };
 // ---

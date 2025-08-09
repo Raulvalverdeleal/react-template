@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { user } from '@core';
 import { AppProviderProps, UseAppContext } from '@types';
 import { AppContext } from '@contexts';
+import { booking } from '@/core/booking.ts';
 
 export function AppProvider({ children }: AppProviderProps) {
 	const [forcedRenders, setForcedRenders] = useState<UseAppContext['forcedRenders']>(0);
@@ -13,6 +14,7 @@ export function AppProvider({ children }: AppProviderProps) {
 	}, []);
 
 	user.setRender(forceRender);
+	booking.setRender(forceRender);
 
 	return (
 		<AppContext.Provider

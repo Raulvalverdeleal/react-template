@@ -69,6 +69,10 @@ export type SuperFetchOptions = {
 	retries?: number;
 };
 
+export type ServiceOptions = SuperFetchOptions & {
+	root: string;
+};
+
 export interface CustomCSSProperties extends CSSProperties {
 	[key: `--${string}`]: number | string;
 }
@@ -96,8 +100,9 @@ type DialogDataMap = {
 		title: string;
 		message: string;
 	};
-	product: {
-		productId: number;
+	'unexpected-error': {
+		title: string;
+		message: string;
 	};
 };
 
@@ -119,8 +124,4 @@ export type CacheItem<T> = {
 
 export type TableSchema = {
 	[tableName: string]: unknown;
-};
-
-export type ServiceOptions = SuperFetchOptions & {
-	roots: Record<EnviromentsValue, string>;
 };

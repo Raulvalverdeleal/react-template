@@ -1,17 +1,67 @@
 {
-	"es": {
-		"An unexpected error has ocurred.": "Ha ocurrido un error inesperado.",
-		"Call": "Llamar",
-		"Close": "Cerrar",
-		"Email": "Correo electrónico",
-		"Loading...": "Cargando...",
-		"Oops! Something went wrong.": "¡Ups! Algo salió mal.",
-		"Please contact us for more information.": "Por favor, contáctanos para más información.",
-		"React template": "Plantilla React",
-		"Sample error pop up": "Ejemplo de mensaje de error",
-		"Some error has occurred, please try again.": "Ha ocurrido un error, por favor intenta de nuevo.",
-		"Unauthorized": "No autorizado",
-		"Understood": "Entendido",
-		"Whatsapp": "Whatsapp"
-	}
+  "An unexpected error has ocurred.": {
+    "es": "Ha ocurrido un error inesperado.",
+    "fr": "Une erreur inattendue s'est produite.",
+    "it": "Si è verificato un errore imprevisto."
+  },
+  "Call": {
+    "es": "Llamar",
+    "fr": "Appeler",
+    "it": "Chiamare"
+  },
+  "Close": {
+    "es": "Cerrar",
+    "fr": "Fermer",
+    "it": "Chiudere"
+  },
+  "Email": {
+    "es": "Correo electrónico",
+    "fr": "E-mail",
+    "it": "Email"
+  },
+  "Loading...": {
+    "es": "Cargando...",
+    "fr": "Chargement...",
+    "it": "Caricamento..."
+  },
+  "Oops! Something went wrong.": {
+    "es": "¡Ups! Algo salió mal.",
+    "fr": "Oups ! Quelque chose s'est mal passé.",
+    "it": "Ops! Qualcosa è andato storto."
+  },
+  "Please contact us for more information.": {
+    "es": "Por favor, contáctanos para más información.",
+    "fr": "Veuillez nous contacter pour plus d'informations.",
+    "it": "Si prega di contattarci per ulteriori informazioni."
+  },
+  "React template": {
+    "es": "Plantilla React",
+    "fr": "Modèle React",
+    "it": "Template React"
+  },
+  "Sample error pop up": {
+    "es": "Ejemplo de ventana emergente de error",
+    "fr": "Exemple de fenêtre contextuelle d'erreur",
+    "it": "Esempio di popup di errore"
+  },
+  "Some error has occurred, please try again.": {
+    "es": "Ha ocurrido un error, por favor intenta de nuevo.",
+    "fr": "Une erreur s'est produite, veuillez réessayer.",
+    "it": "Si è verificato un errore, riprova."
+  },
+  "Unauthorized": {
+    "es": "No autorizado",
+    "fr": "Non autorisé",
+    "it": "Non autorizzato"
+  },
+  "Understood": {
+    "es": "Entendido",
+    "fr": "Compris",
+    "it": "Capito"
+  },
+  "Whatsapp": {
+    "es": "Whatsapp",
+    "fr": "Whatsapp",
+    "it": "Whatsapp"
+  }
 }

@@ -3,6 +3,7 @@ import { user } from '@core';
 import { AppProviderProps, UseAppContext } from '@types';
 import { AppContext } from '@contexts';
 import { booking } from '@/core/booking.ts';
+import { translator } from '@/utils/index.ts';
 
 export function AppProvider({ children }: AppProviderProps) {
 	const [forcedRenders, setForcedRenders] = useState<UseAppContext['forcedRenders']>(0);
@@ -15,6 +16,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
 	user.setRender(forceRender);
 	booking.setRender(forceRender);
+	translator.setRender(forceRender);
 
 	return (
 		<AppContext.Provider

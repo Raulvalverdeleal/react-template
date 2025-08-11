@@ -125,3 +125,12 @@ export type CacheItem<T> = {
 export type TableSchema = {
 	[tableName: string]: unknown;
 };
+
+export type TranslationsRecord = Record<string, string | Record<string, string | null>>;
+export type TranslationsMap = Map<string, string> | Map<string, Record<string, string | null>>;
+
+export type TranslatorData = {
+	lang?: string | null;
+	fallbackLang: string;
+	translations: TranslationsRecord;
+};

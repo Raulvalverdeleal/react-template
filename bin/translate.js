@@ -14,10 +14,8 @@ import path from 'path';
 const config = {
 	searchIn: 'src',
 	fileExtensions: ['ts', 'tsx'],
-	json: {
-		fileName: 'default-translations',
-		output: 'src/assets',
-	},
+	languages: ["es", "fr", "it"],
+	json: "src/assets",
 	patterns: [
 		/__\([\s]{0,}"((?:\\.|[^"\\])*)"/g, //__("capture this")
 		/__\([\s]{0,}'((?:\\.|[^'\\])*)'/g, //__('capture this')
@@ -52,17 +50,8 @@ function exitIfNotFound(dir) {
 
 function extractTranslationsFromJSONFile(directory) {
 	const fileTranlations = new Set();
-
-	if (!fs.existsSync(directory)) return fileTranlations;
-	const content = fs.readFileSync(directory, 'utf-8');
-
-	try {
-		const json = JSON.parse(content);
-		Object.values(json).forEach((translations) => fileTranlations.add(translations));
-	} catch (error) {
-		console.error(error);
-	}
-
+	const json = getJSONData(directory)
+	Object.values(json).forEach((translations) => fileTranlations.add(translations));
 	return fileTranlations;
 }
 
@@ -106,29 +95,47 @@ function extractTranslations() {
 
 function buildJSON() {
 	if (!config.json) return;
-	const outputDir = path.join(resolvePath(config.json.output), config.json.fileName + '.json');
+	const translationsFile = path.join(resolvePath(config.json), 'translations.json');
 
 	let deleted = 0,
 		added = 0;
-	const previousTranlations = extractTranslationsFromJSONFile(outputDir);
 
+	const previousData = getJSONData(translationsFile);
 	const data = {};
-	previousTranlations.forEach((t) => {
-		if (!sortedTranslations.has(t)) deleted += 1;
+	Object.keys(previousData).forEach((key) => {
+		if (!sortedTranslations.has(key)) {
+			deleted++;
+		}
 	});
-	sortedTranslations.forEach((t) => {
-		if (!previousTranlations.has(t)) added += 1;
-		data[t] = t;
+
+	sortedTranslations.forEach((key) => {
+		if (!config.languages) {
+			if (!previousData[key]) added++
+			data[key] = key
+			return
+		}
+		data[key] = config.languages.reduce((acc, value) => {
+			acc[value] = null
+			return acc
+		}, {})
+		if (!previousData[key]) {
+			added++
+		} else {
+			for (const lang of config.languages) {
+				data[key][lang] = previousData[key]?.[lang] ?? null
+			}
+		}
 	});
 
 	try {
-		fs.writeFileSync(outputDir, JSON.stringify(data, null, 2), 'utf-8');
-		printStatus('JSON', added, deleted, outputDir);
+		fs.writeFileSync(translationsFile, JSON.stringify(data, null, 2), 'utf-8');
+		printStatus('JSON', added, deleted, translationsFile);
 	} catch (err) {
 		console.error(`\x1b[31merror:\x1b[0m ${err.message}`);
 		process.exit(1);
 	}
 }
+
 
 function buildPHP() {
 	if (!config.php) return;
@@ -217,6 +224,21 @@ function resolvePath(str) {
 	return path.resolve(process.cwd(), str);
 }
 
+function getJSONData(directory) {
+
+	if (!fs.existsSync(directory)) return {};
+	const content = fs.readFileSync(directory, 'utf-8');
+
+	try {
+		const json = JSON.parse(content);
+		return json
+	} catch (error) {
+		console.error(error);
+	}
+
+	return {};
+}
+
 /**
  *
  * @typedef {Object} JSONOptions
@@ -233,6 +255,7 @@ function resolvePath(str) {
  * @property {string | string[]} input - Translations to start with
  * @property {string[]} fileExtensions - Any other extension not included, will be ignored in the searchIn
  * @property {string | string[]} searchIn - the directory/s where the pattern will be searched
- * @property {JSONOptions} [json]
+ * @property {string[]} languages - the languages to be translated in json
+ * @property {string} [json] - output directory
  * @property {PHPOptions} [php]
  */

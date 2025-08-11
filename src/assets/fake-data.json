@@ -15,5 +15,10 @@
 		"email": "pietro@test.test",
 		"step": "personal-details",
 		"acceptTerms": true
+	},
+	"apiResponses": {
+		"doSomenthing": {
+			"bar": "hello"
+		}
 	}
 }

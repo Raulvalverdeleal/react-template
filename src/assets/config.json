@@ -14,5 +14,11 @@
         "instagram": "https://www.instagram.com/",
         "linkedin": "https://www.linkedin.com/",
         "github": "https://github.com/"
-    }
+    },
+    "stepsOrder": [
+        "date",
+        "shift",
+        "products",
+        "payment"
+    ]
 }

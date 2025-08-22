@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { XIcon } from 'lucide-react';
-import { __, cn } from '@utils';
-import { useApp } from '@hooks';
+import { cn } from '@utils';
+import { useApp, useTranslator } from '@hooks';
 import { ErrorDialog, DialogPortal, DialogOverlay, DialogClose } from '@components';
 import { useDialog } from '@hooks';
 
@@ -29,6 +29,7 @@ function GlobalDialogContent({
 	showCloseButton?: boolean;
 }) {
 	const dialog = useDialog();
+	const __ = useTranslator();
 	return (
 		<DialogPortal data-slot="dialog-portal">
 			<DialogOverlay />

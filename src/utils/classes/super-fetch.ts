@@ -1,5 +1,4 @@
 import { BaseResponse } from '@types';
-import { __ } from '@utils';
 
 type SuperFetchOptions = {
 	token?: string | null;
@@ -89,7 +88,7 @@ export class SuperFetch {
 				if (response.status === 401) {
 					localStorage.clear();
 					window.location.reload();
-					throw new Error(__('Unauthorized'));
+					throw new Error('Unauthorized');
 				}
 
 				clearTimeout(timeoutId);
@@ -113,7 +112,7 @@ export class SuperFetch {
 				const errorHasMessage = err instanceof Error || err instanceof DOMException;
 				const result = {
 					result: 'nok',
-					message: errorHasMessage ? err.message : __('An unexpected error has ocurred.'),
+					message: errorHasMessage ? err.message : 'Failed to fetch',
 					aborted: false,
 				};
 

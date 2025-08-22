@@ -1,5 +1,5 @@
 import { StateOptions, UserData } from '@types';
-import { State, load, StorageKeys, Storages } from '@utils';
+import { getLocalStorageItem, State, StorageKeys } from '@utils';
 import { data } from '@assets';
 
 export class User extends State<UserData> {
@@ -31,6 +31,6 @@ export class User extends State<UserData> {
 	}
 }
 
-export const user = new User(load(Storages.LOCAL, StorageKeys.USER, data.default.user), {
+export const user = new User(getLocalStorageItem(StorageKeys.USER, data.default.user), {
 	localStorageKey: StorageKeys.USER,
 });

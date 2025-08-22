@@ -1,22 +1,20 @@
-import { useDialog } from '@/hooks/use-dialog.ts';
-import { __ } from '@utils';
-import { useEffect } from 'react';
+import { useTranslator } from '@/hooks/use-translator.ts';
+import { Button } from '../ui/button.tsx';
 
 export function HomePage() {
-	const dialog = useDialog();
-
-	useEffect(() => {
-		dialog.open({
-			view: 'error',
-			title: __('Sample error pop up'),
-			message: __('Some error has occurred, please try again.'),
-		});
-	}, []); //eslint-disable-line react-hooks/exhaustive-deps
-
+	const __ = useTranslator();
 	return (
 		<div className="h-full overflow-scroll inside-wrapper">
-			<div className="inside p-4">
+			<div className="inside p-4 flex-col space-y-5">
 				<h1>{__('React template')}</h1>
+				<Button
+					variant={'destructive'}
+					onClick={() => {
+						throw new Error('message');
+					}}
+				>
+					{__('Throw error')}
+				</Button>
 			</div>
 		</div>
 	);

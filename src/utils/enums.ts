@@ -4,16 +4,7 @@ export enum Enviroments {
 	PRO = 'production',
 }
 
-export enum Storages {
-	LOCAL = 'localStorage',
-	SESSION = 'sessionStorage',
-}
-
 export enum StorageKeys {
 	USER = 'user',
-}
-
-export enum Routes {
-	HOME = '/',
-	ERROR = '/error',
+	PREFERENCES = 'preferences',
 }

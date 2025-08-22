@@ -1,8 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
-import { AppProvider } from '@components';
-import { App } from '@/app.tsx';
 import { createRoot } from 'react-dom/client';
 import '@styles';
+import { AppProvider } from './components/index.tsx';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router.tsx';
 
 const root = document.getElementById('root');
 if (!root) {
@@ -11,8 +11,6 @@ if (!root) {
 
 createRoot(root).render(
 	<AppProvider>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<RouterProvider router={router} />
 	</AppProvider>
 );

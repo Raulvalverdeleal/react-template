@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
-import { __ } from '@utils';
-import { useApp } from '@hooks';
+import { useApp, useTranslator } from '@hooks';
 
 export function useLoading(options?: { showToast: boolean }) {
 	const { loading, setLoading } = useApp();
+	const __ = useTranslator();
 	const toastIds = useRef<Set<string | number>>(new Set());
 	const last = useRef(0);
 
@@ -24,7 +24,7 @@ export function useLoading(options?: { showToast: boolean }) {
 	useEffect(() => {
 		handleLoad();
 		last.current = loading;
-	}, [loading]); //eslint-disable-line react-hooks/exhaustive-deps
+	}, [loading]);
 
 	useEffect(() => {
 		return () => {

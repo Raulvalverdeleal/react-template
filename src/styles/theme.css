@@ -28,7 +28,7 @@
 	--color-muted-foreground: var(--muted-foreground);
 	--color-accent: var(--accent);
 	--color-accent-foreground: var(--accent-foreground);
-	--color-destructive: var(--destructive);
+	--color-destructive: var(--color-red-500);
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
@@ -134,7 +134,16 @@
 		@apply overflow-hidden h-screen w-screen;
 	}
 	#root {
-		@apply grid min-h-dvh grid-rows-1 bg-background;
+		@apply grid min-h-dvh grid-rows-[1fr] bg-background;
+	}
+	.has-header #root {
+		@apply grid-rows-[auto_1fr];
+	}
+	.has-footer #root {
+		@apply grid-rows-[1fr_auto];
+	}
+	.has-header.has-footer #root {
+		@apply grid-rows-[auto_1fr_auto];
 	}
 }
 
@@ -143,7 +152,7 @@
 		@apply w-full flex items-center justify-between;
 	}
 	.inside {
-		@apply max-w-(--max-width) w-full h-full p-4 flex flex-col items-center;
+		@apply max-w-(--max-width) w-full h-full p-4 flex;
 	}
 	.inside-wrapper {
 		@apply w-full flex items-center justify-center;

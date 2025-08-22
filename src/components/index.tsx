@@ -3,10 +3,13 @@ export { ErrorDialog } from '@/components/dialogs/error-dialog.tsx';
 
 // layout
 export { PageWrapper } from '@/components/layout/page-wrapper.tsx';
+export { Header } from '@/components/layout/header.tsx';
+export { Footer } from '@/components/layout/footer.tsx';
 
 // pages
 export { HomePage } from '@/components/pages/home-page.tsx';
 export { ErrorPage } from '@/components/pages/error-page.tsx';
+export { NotFoundPage } from '@/components/pages/not-found-page.tsx';
 
 // providers
 export { AppProvider } from '@/components/providers/app-provider.tsx';

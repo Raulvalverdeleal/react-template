@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { DialogData } from '@types';
+import { DialogData, TranslationsRecord } from '@types';
 
 export type UserData = {
 	id: number;
@@ -45,6 +45,10 @@ export type DateAvailability = {
 	available: boolean;
 };
 
+export type Preferences = {
+	lang: string;
+};
+
 export type UseAppContext = {
 	forcedRenders: number;
 	forceRender: Dispatch<SetStateAction<UseAppContext['forcedRenders']>>;
@@ -52,4 +56,8 @@ export type UseAppContext = {
 	setDialogData: Dispatch<SetStateAction<UseAppContext['dialogData']>>;
 	loading: number;
 	setLoading: Dispatch<SetStateAction<UseAppContext['loading']>>;
+	preferences: Preferences;
+	setPreferences: Dispatch<SetStateAction<UseAppContext['preferences']>>;
+	translations: TranslationsRecord;
+	setTranslations: Dispatch<SetStateAction<UseAppContext['translations']>>;
 };

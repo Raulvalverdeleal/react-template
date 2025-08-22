@@ -1,0 +1,45 @@
+{
+    "default": {
+        "user": {
+            "id": 0,
+            "name": "",
+            "email": "",
+            "token": null
+        },
+        "booking": {
+            "locator": "",
+            "date": null,
+            "shift": null,
+            "amount": 0,
+            "lines": [],
+            "name": "",
+            "email": "",
+            "step": "date",
+            "acceptTerms": false
+        }
+    },
+    "fake": {
+        "user": {
+            "id": 1,
+            "name": "John Jones",
+            "email": "johnjones@gmail.com",
+            "token": "abc"
+        },
+        "booking": {
+            "locator": "ABCD-1234",
+            "date": "2025-08-05",
+            "shift": null,
+            "amount": 100,
+            "lines": [],
+            "name": "Pietro Bonaparte",
+            "email": "pietro@test.test",
+            "step": "personal-details",
+            "acceptTerms": true
+        }
+    },
+    "responses": {
+        "doSomenthing": {
+            "bar": "hello"
+        }
+    }
+}

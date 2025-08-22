@@ -1,4 +1,4 @@
-import { fakeData } from '@/assets/index.ts';
+import { mocks } from '@/assets/index.ts';
 import { ServiceOptions, SamplePayload, SampleResponse } from '@types';
 import { Enviroments, SuperFetch, apiRoot, enviroment } from '@utils';
 
@@ -10,7 +10,7 @@ export class Api extends SuperFetch {
 	doSomething(_data: SamplePayload) {
 		// return this.get<SampleResponse>("/endpoint", {searchParams: "here"});
 		// return this.post<SampleResponse>("/endpoint", {body: "here"});
-		return this.fake<SampleResponse>(fakeData.apiResponses.doSomenthing);
+		return this.fake<SampleResponse>(mocks.responses.doSomenthing);
 	}
 }
 export const api = new Api({

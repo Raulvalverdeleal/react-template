@@ -1,57 +1,46 @@
-import { Routes as RoutesContainer, Route, useLocation, useNavigate } from 'react-router-dom';
-import { PageWrapper, HomePage, GlobalDialog, ErrorBoundary, ErrorPage } from '@components';
-import { domain, enviroment, Enviroments, Routes } from '@utils';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { enviroment, Enviroments } from '@utils';
+import { GlobalDialog, PageWrapper } from '@components';
 import { Toaster } from 'sonner';
-import { AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 export function App() {
-	const location = useLocation();
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	function onError() {
+		if (location.pathname !== '/error') {
+			navigate('/error');
+		}
+	}
 
 	function checkEnviroment() {
-		// if you've deployed to production with pre / local enviroment,
-		// this will catch the issue, handle as you want, email notification, sentry, etc.
-		if (enviroment !== Enviroments.PRO && window.location.host === domain) {
-			navigate(Routes.ERROR);
+		const host = window.location.host;
+		const isLocalhost = host.includes('localhost');
+		const isPreproduction = host.includes('test'); //example: test-react-template.com
+
+		if (enviroment !== Enviroments.PRO && !isLocalhost && !isPreproduction) {
+			throw new Error('Invalid enviroment, should be production');
+			//send email, trigger sentry etc.
 		}
 	}
 
 	useEffect(() => {
-		window.onunhandledrejection = (event) => {
-			console.error('Unhandled rejection:', event.reason);
-			navigate(Routes.ERROR);
-		};
+		addEventListener('error', onError);
 		checkEnviroment();
 		return () => {
-			window.onunhandledrejection = null;
+			removeEventListener('error', onError);
 		};
 	}, []);
 
 	return (
-		<ErrorBoundary fallback={<ErrorPage />}>
-			<AnimatePresence mode="wait">
-				<RoutesContainer key={location.pathname} location={location}>
-					<Route
-						path={Routes.HOME}
-						element={
-							<PageWrapper>
-								<HomePage />
-							</PageWrapper>
-						}
-					/>
-					<Route
-						path={Routes.ERROR}
-						element={
-							<PageWrapper>
-								<ErrorPage />
-							</PageWrapper>
-						}
-					/>
-				</RoutesContainer>
-			</AnimatePresence>
+		<AnimatePresence mode="wait">
+			<PageWrapper>
+				<Outlet />
+			</PageWrapper>
 			<Toaster position="bottom-center" />
 			<GlobalDialog />
-		</ErrorBoundary>
+		</AnimatePresence>
 	);
 }

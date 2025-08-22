@@ -1,10 +1,10 @@
 import { StateOptions, BookingData, Product, BookingStep, ContactDetail, Shift } from '@types';
 import { State, parseDate } from '@utils';
-import { data } from '@assets';
+import { config, mocks } from '@assets';
 
 export class Booking extends State<BookingData> {
 	constructor(booking: Partial<BookingData>, options?: StateOptions) {
-		super({ ...(data.default.booking as BookingData), ...booking }, options);
+		super({ ...(mocks.default.booking as BookingData), ...booking }, options);
 
 		if (!this.data.locator) {
 			this.setData({ locator: this.generateLocator() });
@@ -96,7 +96,7 @@ export class Booking extends State<BookingData> {
 	}
 
 	setStepByOrder(order: number) {
-		const step = data.stepsOrder[order];
+		const step = config.stepsOrder[order];
 		if (step && Booking.isStep(step)) {
 			this.setStep(step);
 		}
@@ -122,7 +122,7 @@ export class Booking extends State<BookingData> {
 	goBack() {
 		const currentOrder = this.getCurrentStepOrder();
 		if (currentOrder > 0) {
-			const previousStep = data.stepsOrder[currentOrder - 1];
+			const previousStep = config.stepsOrder[currentOrder - 1];
 			if (previousStep && Booking.isStep(previousStep)) {
 				this.setStep(previousStep);
 			}
@@ -132,8 +132,8 @@ export class Booking extends State<BookingData> {
 
 	goForward() {
 		const currentOrder = this.getCurrentStepOrder();
-		if (currentOrder < data.stepsOrder.length - 1) {
-			const previousStep = data.stepsOrder[currentOrder + 1];
+		if (currentOrder < config.stepsOrder.length - 1) {
+			const previousStep = config.stepsOrder[currentOrder + 1];
 			if (previousStep && Booking.isStep(previousStep)) {
 				this.setStep(previousStep);
 			}
@@ -231,7 +231,7 @@ export class Booking extends State<BookingData> {
 	}
 
 	restart() {
-		this.setData(data.default.booking as BookingData);
+		this.setData(mocks.default.booking as BookingData);
 		return this;
 	}
 
@@ -290,7 +290,7 @@ export class Booking extends State<BookingData> {
 
 	static isStep(step: unknown): step is BookingStep {
 		if (typeof step === 'string') {
-			return data.stepsOrder.includes(step);
+			return config.stepsOrder.includes(step);
 		}
 		return false;
 	}
@@ -301,7 +301,7 @@ export class Booking extends State<BookingData> {
 	}
 
 	static getStepOrder(step: BookingStep) {
-		return data.stepsOrder.indexOf(step);
+		return config.stepsOrder.indexOf(step);
 	}
 
 	[Symbol.iterator]() {
@@ -309,4 +309,4 @@ export class Booking extends State<BookingData> {
 	}
 }
 
-export const booking = new Booking(data.default.booking as BookingData);
+export const booking = new Booking(mocks.default.booking as BookingData);

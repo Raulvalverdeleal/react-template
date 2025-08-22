@@ -255,7 +255,7 @@ function getJSONData(directory) {
  * @property {string | string[]} input - Translations to start with
  * @property {string[]} fileExtensions - Any other extension not included, will be ignored in the searchIn
  * @property {string | string[]} searchIn - the directory/s where the pattern will be searched
- * @property {string[]} languages - the languages to be translated in json
+ * @property {string[]} [languages] - the languages to be translated in json
  * @property {string} [json] - output directory
  * @property {PHPOptions} [php]
  */

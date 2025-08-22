@@ -1,28 +1,35 @@
-import type { StoragesValue, StorageKeysValue } from '@types';
 import { DateFormats, NumFormats } from '@types';
+import { StorageKeys } from './enums.ts';
 
-export const load = <T = object>(from: StoragesValue, key: StorageKeysValue, defaultValue: T): T => {
+export async function pause(ms?: number) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function parseJSON<K>(json: string, defaultValue: K): K {
 	try {
-		const storedValue = from === 'sessionStorage' ? sessionStorage.getItem(key) : localStorage.getItem(key);
-
-		if (storedValue === null) return defaultValue;
-
-		const parsedValue = JSON.parse(storedValue);
-		if (
-			typeof defaultValue === 'object' &&
-			!Array.isArray(defaultValue) &&
-			typeof parsedValue === 'object' &&
-			!Array.isArray(parsedValue)
-		) {
-			return { ...defaultValue, ...parsedValue };
-		}
-
-		return parsedValue || defaultValue;
+		const parsedValue = JSON.parse(json);
+		return parsedValue ?? defaultValue;
 	} catch (error) {
 		console.error(error);
 		return defaultValue;
 	}
-};
+}
+
+export function getLocalStorageItem<K>(key: StorageKeys, defaultValue: K): K {
+	const item = localStorage.getItem(key);
+	if (item) {
+		return parseJSON(item, defaultValue);
+	}
+	return defaultValue;
+}
+
+export function getSessionStorageItem<K>(key: StorageKeys, defaultValue: K): K {
+	const item = sessionStorage.getItem(key);
+	if (item) {
+		return parseJSON(item, defaultValue);
+	}
+	return defaultValue;
+}
 
 export function parseNum(format: NumFormats, num: number) {
 	const number = Number(num || 0);

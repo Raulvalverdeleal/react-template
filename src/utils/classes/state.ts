@@ -26,7 +26,6 @@ export class State<T> {
 		if (!this.#renderFunction) {
 			throw new Error('state has not render funciton yet');
 		}
-
 		this.#renderFunction();
 	}
 

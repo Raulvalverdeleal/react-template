@@ -1,9 +1,4 @@
 {
-  "An unexpected error has ocurred.": {
-    "es": "Ha ocurrido un error inesperado.",
-    "fr": "Une erreur inattendue s'est produite.",
-    "it": "Si è verificato un errore imprevisto."
-  },
   "Call": {
     "es": "Llamar",
     "fr": "Appeler",
@@ -18,6 +13,16 @@
     "es": "Correo electrónico",
     "fr": "E-mail",
     "it": "Email"
+  },
+  "Error 404": {
+    "es": "Error 404",
+    "fr": "Erreur 404",
+    "it": "Errore 404"
+  },
+  "Language": {
+    "es": "Idioma",
+    "fr": "Langue",
+    "it": "Lingua"
   },
   "Loading...": {
     "es": "Cargando...",
@@ -39,20 +44,20 @@
     "fr": "Modèle React",
     "it": "Template React"
   },
-  "Sample error pop up": {
-    "es": "Ejemplo de ventana emergente de error",
-    "fr": "Exemple de fenêtre contextuelle d'erreur",
-    "it": "Esempio di popup di errore"
+  "Select a language": {
+    "es": "Selecciona un idioma",
+    "fr": "Sélectionnez une langue",
+    "it": "Seleziona una lingua"
   },
-  "Some error has occurred, please try again.": {
-    "es": "Ha ocurrido un error, por favor intenta de nuevo.",
-    "fr": "Une erreur s'est produite, veuillez réessayer.",
-    "it": "Si è verificato un errore, riprova."
+  "The page you are looking for does not exist. Please contact us for more information.": {
+    "es": "La página que buscas no existe. Por favor, contáctanos para más información.",
+    "fr": "La page que vous recherchez n'existe pas. Veuillez nous contacter pour plus d'informations.",
+    "it": "La pagina che stai cercando non esiste. Si prega di contattarci per ulteriori informazioni."
   },
-  "Unauthorized": {
-    "es": "No autorizado",
-    "fr": "Non autorisé",
-    "it": "Non autorizzato"
+  "Throw error": {
+    "es": "Lanzar error",
+    "fr": "Générer une erreur",
+    "it": "Genera errore"
   },
   "Understood": {
     "es": "Entendido",

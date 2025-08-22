@@ -1,4 +1,4 @@
-import { translations } from '@assets';
+import { translationsTemplate } from '@assets';
 
 export type IconName =
 	| 0
@@ -58,7 +58,7 @@ export type DateFormats =
 
 export type NumFormats = 'X€' | '0X';
 
-export type TranslationKey = keyof typeof translations | (string & {});
+export type TranslationKey = keyof typeof translationsTemplate | (string & {});
 
 export type DateConstructor = string | number | Date;
 
@@ -126,11 +126,24 @@ export type TableSchema = {
 	[tableName: string]: unknown;
 };
 
-export type TranslationsRecord = Record<string, string | Record<string, string | null>>;
 export type TranslationsMap = Map<string, string> | Map<string, Record<string, string | null>>;
+export type TranslationsRecord = Record<string, string | Record<string, string | null>>;
 
-export type TranslatorData = {
-	lang?: string | null;
+export type TranslatorConstructor = {
+	lang: string;
 	fallbackLang: string;
 	translations: TranslationsRecord;
+};
+
+declare global {
+	interface Window {
+		translationsTemplate: TranslationsRecord;
+	}
+}
+
+export type RouteMeta = {
+	header?: boolean;
+	footer?: boolean;
+	secured?: boolean;
+	redirectTo?: string;
 };

@@ -112,40 +112,6 @@ export const parseDate = (format: DateFormats, date: string | number | Date, utc
 	}
 };
 
-/**
- * @example
- * useEffect(() => {
-        const element = container.current
-        if (!element) return
-
-        const observer = handleHeightChange(element, "--footer-height")
-        return () => observer.disconnect()
-    }, [visible])
- */
-export function handleHeightChange(element: Element, cssVarName: string) {
-	const observer = setupResizeObserver(element, (element) => {
-		const newHeight = element.clientHeight;
-		document.documentElement.style.setProperty(cssVarName, `${newHeight}px`);
-	});
-	return {
-		disconnect() {
-			observer.disconnect();
-			document.documentElement.style.setProperty(cssVarName, `${0}px`);
-		},
-	};
-}
-function handleResize(element: Element, entries: ResizeObserverEntry[], onResize?: (element: Element) => unknown) {
-	for (const entry of entries) {
-		if (entry.target !== element) continue;
-		if (onResize) onResize(element);
-	}
-}
-export function setupResizeObserver(element: Element, onResize?: (element: Element) => unknown) {
-	const observer = new ResizeObserver((entries) => handleResize(element, entries, onResize));
-	observer.observe(element);
-	return observer;
-}
-
 export function normalizePhoneNumber(phoneNumber: string) {
 	return phoneNumber.replaceAll('+', '').replaceAll(/\s{1,}/g, '');
 }

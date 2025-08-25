@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"start": "vite",
+		"start:docs": "npx docsify-cli serve docs",
 		"build": "vite build",
 		"preview": "vite preview",
 		"format": "npx prettier . --write",

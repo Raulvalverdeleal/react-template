@@ -1,5 +1,5 @@
-import { useTranslator } from '@/hooks/use-translator.ts';
-import { Button } from '../ui/button.tsx';
+import { useTranslator } from '@hooks';
+import { Button } from '@components';
 
 export function HomePage() {
 	const __ = useTranslator();

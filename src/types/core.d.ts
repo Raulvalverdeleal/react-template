@@ -8,8 +8,6 @@ export type UserData = {
 	token: string | null;
 };
 
-export type BookingStep = 'date' | 'shift' | 'products' | 'payment';
-
 export type BookingData = {
 	locator: string;
 	date: string | null; //yyyy-mm-dd
@@ -18,7 +16,6 @@ export type BookingData = {
 	lines: BookingLineData[];
 	name: string;
 	email: string;
-	step: BookingStep;
 	acceptTerms: boolean;
 };
 

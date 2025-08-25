@@ -1,6 +1,6 @@
-import { StateOptions, BookingData, Product, BookingStep, ContactDetail, Shift } from '@types';
+import { StateOptions, BookingData, Product, ContactDetail, Shift } from '@types';
 import { State, parseDate } from '@utils';
-import { config, mocks } from '@assets';
+import { mocks } from '@assets';
 
 export class Booking extends State<BookingData> {
 	constructor(booking: Partial<BookingData>, options?: StateOptions) {
@@ -44,10 +44,6 @@ export class Booking extends State<BookingData> {
 		return this.data.email;
 	}
 
-	get step() {
-		return this.data.step;
-	}
-
 	get acceptTerms() {
 		return this.data.acceptTerms;
 	}
@@ -81,63 +77,6 @@ export class Booking extends State<BookingData> {
 			lines: [],
 		});
 
-		return this;
-	}
-
-	setStep(step: BookingStep) {
-		let safeStep = step;
-
-		if (step === 'shift' && !this.date) safeStep = 'date';
-		else if (step === 'products' && !this.shift) safeStep = 'shift';
-		else if (step === 'payment' && this.lines.length === 0) safeStep = 'products';
-
-		this.setData({ step: safeStep });
-		return this;
-	}
-
-	setStepByOrder(order: number) {
-		const step = config.stepsOrder[order];
-		if (step && Booking.isStep(step)) {
-			this.setStep(step);
-		}
-		return this;
-	}
-
-	getCurrentStepOrder() {
-		return Booking.getStepOrder(this.step);
-	}
-
-	getUnlockedStep(): BookingStep {
-		if (!this.date) return 'date';
-		if (!this.shift) return 'shift';
-		if (this.lines.length === 0) return 'products';
-		return 'payment';
-	}
-
-	goToUnlockedStep() {
-		this.setStep(this.getUnlockedStep());
-		return this;
-	}
-
-	goBack() {
-		const currentOrder = this.getCurrentStepOrder();
-		if (currentOrder > 0) {
-			const previousStep = config.stepsOrder[currentOrder - 1];
-			if (previousStep && Booking.isStep(previousStep)) {
-				this.setStep(previousStep);
-			}
-		}
-		return this;
-	}
-
-	goForward() {
-		const currentOrder = this.getCurrentStepOrder();
-		if (currentOrder < config.stepsOrder.length - 1) {
-			const previousStep = config.stepsOrder[currentOrder + 1];
-			if (previousStep && Booking.isStep(previousStep)) {
-				this.setStep(previousStep);
-			}
-		}
 		return this;
 	}
 
@@ -288,20 +227,9 @@ export class Booking extends State<BookingData> {
 		].join('\n');
 	}
 
-	static isStep(step: unknown): step is BookingStep {
-		if (typeof step === 'string') {
-			return config.stepsOrder.includes(step);
-		}
-		return false;
-	}
-
 	static isContactDetailKey(str: string): str is ContactDetail {
 		const contactDetails = ['name', 'email'];
 		return contactDetails.includes(str);
-	}
-
-	static getStepOrder(step: BookingStep) {
-		return config.stepsOrder.indexOf(step);
 	}
 
 	[Symbol.iterator]() {

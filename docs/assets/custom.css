@@ -31,6 +31,7 @@ pre {
 .copy-btn .copy-icon {
 	width: 18px;
 	height: 18px;
+	fill: var(--codeTextColor) !important;
 }
 
 pre:hover .copy-btn {
@@ -66,4 +67,10 @@ pre::after {
 #docsify-darklight-theme {
 	position: static !important;
 	margin-bottom: 12px;
+}
+.clear-button svg {
+	scale: 1.5;
+}
+.clear-button svg circle {
+	fill: var(--accent) !important;
 }

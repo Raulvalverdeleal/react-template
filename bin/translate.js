@@ -1,14 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-/**
- * KEY CONSIDERATIONS
- * - do not use any kind of expression inside translation strings, use placeholders instead.
- * - Comented translations will also be added to the output file.
- * - do not use translation codes, only translation itself as the key, ex:
- *   * "my translation": "my translation"
- */
-
 /* CONFIG ======================================================= */
 /** @type {TranslateConfig} */
 const config = {
@@ -152,7 +144,7 @@ function buildPHP() {
 	});
 	sortedTranslations.forEach((t, index) => {
 		if (!previousTranlations.has(t)) added += 1;
-		data += `\n\t"${t}" => __("${t}","${config.php.template || config.name}")${index === sortedTranslations.size - 1 ? '' : ','}`;
+		data += `\n\t"${t}" => __("${t}","${config.php.template || "no-specified"}")${index === sortedTranslations.size - 1 ? '' : ','}`;
 	});
 
 	data += '\n];';
@@ -241,14 +233,11 @@ function getJSONData(directory) {
 
 /**
  *
- * @typedef {Object} JSONOptions
- * @property {string} fileName - the name of the generated json file
- * @property {string} output - the directory of the generated json file
  *
  * @typedef {Object} PHPOptions
  * @property {string} fileName - the name of the generated json file
  * @property {string} output - the directory of the generated json file
- * @property {string|undefined} template - if not set, will use `name` instead.
+ * @property {string|undefined} template - if not set, will use `no-specified` instead.
  *
  * @typedef {Object} TranslateConfig
  * @property {RegExp[]} patterns - everything that matches it will be captured & added to translations

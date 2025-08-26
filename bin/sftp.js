@@ -15,7 +15,7 @@ import { spawn } from 'child_process';
  *   * --action
  */
 /* CONFIG ======================================================= */
-/**@type {UploadOptions} */
+/**@type {Options} */
 const config = {
 	user: 'root',
 	host: 'example.com',
@@ -55,7 +55,9 @@ function upload() {
 function download() {
 	const isFile = path.extname(args.remote) !== '';
 
-	const sftpCommand = isFile ? `get ${args.remote} ${args.local}` : `lcd ${args.local}\ncd ${args.remote}\nget -r .`;
+	const sftpCommand = isFile
+		? `get ${args.remote} ${args.local}`
+		: `lcd ${args.local}\ncd ${args.remote}\nget -r .`;
 
 	const sftpScript = `${sftpCommand}\nbye`;
 
@@ -73,13 +75,14 @@ function handleSftpConnection({ user, host }, sftpScript) {
 		sftpProcess.stdin.write(sftpScript);
 		sftpProcess.stdin.end();
 
-		// uncomment to show sftp logs
-		// sftpProcess.stdout.on("data", (data) => {
-		//     process.stdout.write(data);
-		// });
-		// sftpProcess.stderr.on("data", (data) => {
-		//     process.stderr.write(data);
-		// });
+		if (args.debug) {
+			sftpProcess.stdout.on("data", (data) => {
+				process.stdout.write(data);
+			});
+			sftpProcess.stderr.on("data", (data) => {
+				process.stderr.write(data);
+			});
+		}
 
 		sftpProcess.on('close', (code) => {
 			if (code === 0) {
@@ -95,15 +98,16 @@ function handleSftpConnection({ user, host }, sftpScript) {
 	}
 }
 
-/** @type {() => UploadOptions} */
+/** @type {() => Options} */
 function loadArgs() {
 	const args = parseArgs();
 	const computedArgs = {
-		user: args['-u'] || args['-user'] || args['--user'] || config.user,
-		host: args['-h'] || args['-host'] || args['--host'] || config.host,
-		local: resolvePath(args['-l'] || args['-local'] || args['--local'] || config.local),
-		remote: args['-r'] || args['-remote'] || args['--remote'] || config.remote,
-		action: args['-a'] || args['-action'] || args['--action'] || config.action,
+		user: args['-u'] || args['--user'] || config.user,
+		host: args['-h'] || args['--host'] || config.host,
+		local: resolvePath(args['-l'] || args['--local'] || config.local),
+		remote: args['-r'] || args['--remote'] || config.remote,
+		action: args['-a'] || args['--action'] || config.action,
+		debug: args['-d'] || args['--debug'] || config.debug,
 	};
 
 	for (const [name, value] of Object.entries(computedArgs)) {
@@ -139,10 +143,11 @@ function parseArgs() {
 }
 
 /**
- * @typedef {Object} UploadOptions
+ * @typedef {Object} Options
  * @property {string} [user]
  * @property {string} [host]
  * @property {string} [local]
+ * @property {boolean} [debug]
  * @property {string} [remote]
  * @property {"put" | "get"} [action]
  */

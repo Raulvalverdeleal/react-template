@@ -1,14 +1,5 @@
 import { execSync } from 'child_process';
 
-/**
- * KEY CONSIDERATIONS
- * - 1.0.0
- * - will exit with 1 if expected does not match with current branch.
- * - use case:
- *  branch.js -b main && npm run pro:deploy #unable to deploy in production any other branch than main
- *  npm run pre:deploy #able to deply in pre every branch
- */
-
 /* CONFIG ======================================================= */
 const config = {
 	expectedBranch: 'main',
@@ -24,7 +15,7 @@ function checkBranch(expectedBranch) {
 	try {
 		const currentBranch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
 		if (currentBranch !== expectedBranch) {
-			console.error(`\x1b[31m\u2718\x1b[0m switch to ${expectedBranch} to proceed`);
+			console.error(`\x1b[31m\u2718\x1b[0m Current branch ${currentBranch}, switch to ${expectedBranch} to proceed`);
 			process.exit(1);
 		}
 	} catch (error) {
@@ -36,7 +27,7 @@ function checkBranch(expectedBranch) {
 function loadArgs() {
 	const args = parseArgs();
 	const computedArgs = {
-		expectedBranch: args['-b'] || args['-branch'] || args['--branch'] || config.expectedBranch,
+		expectedBranch: args['-e'] || args['--expected'] || config.expectedBranch,
 	};
 
 	for (const [name, value] of Object.entries(computedArgs)) {

@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+# Custom 
+
 stats.html
 .env*
 !.env.local

@@ -38,9 +38,9 @@ export function App() {
 		<AnimatePresence mode="wait">
 			<PageWrapper>
 				<Outlet />
+				<Toaster position="bottom-center" />
+				<GlobalDialog />
 			</PageWrapper>
-			<Toaster position="bottom-center" />
-			<GlobalDialog />
 		</AnimatePresence>
 	);
 }

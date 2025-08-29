@@ -7,7 +7,6 @@ import reactDom from 'eslint-plugin-react-dom';
 import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
-	{ ignores: ['build', 'bin'] },
 	{
 		extends: [...tseslint.configs.recommended, prettier],
 		files: ['src/**/*.{ts,tsx}'],
@@ -24,6 +23,11 @@ export default tseslint.config(
 			'react-dom': reactDom,
 			'react-hooks': reactHooks,
 			'react-refresh': reactRefresh,
+		},
+		settings: {
+			react: {
+				"version": "detect"
+			}
 		},
 		rules: {
 			...react.configs.recommended.rules,

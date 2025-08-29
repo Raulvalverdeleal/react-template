@@ -6,7 +6,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
-	logLevel: 'error',
 	plugins: [
 		tsconfigPaths(),
 		tailwindcss(),
@@ -26,9 +25,5 @@ export default defineConfig({
 	server: {
 		open: true,
 		port: 3000,
-		watch: {
-			usePolling: true,
-			interval: 100,
-		},
 	},
 });

@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+:root {
+	--siteFont: 'Inter', Helvetica Neue, Arial, sans-serif !important;
+	--bg-body: #fff;
+	--theme-color: #333;
+	--github: var(--bg-body);
+
+	--text-body: #0d0d0d;
+	--bg-sidebar: #f9f9f9;
+	--text-anchor: #000;
+
+	--text-headers: #111;
+	--text-links: #0057d8;
+
+	--code-text: #111;
+	--code-bg: #ececec;
+	--pre-bg: #f9f9f9;
+
+	--blockquote-border: #00000026;
+	--blockquote-text: #333;
+
+	--table-border-head: #00000026;
+	--table-border-body: #0000000d;
+
+	--accent-border: rgb(0, 162, 255);
+	--accent-bg: rgba(0, 162, 255, 0.1);
+
+	--tip-border: rgb(255, 213, 0);
+	--tip-bg: rgba(255, 213, 0, 0.1);
+
+	--search-text: #111;
+	--search-sub: #555;
+	--search-bg: #f0f0f0;
+	--hr-border: #00000026;
+
+	--input-bg: white;
+	--input-shadow: #888;
+	--input-text: black;
+	--input-border: #ccc;
+}
+.dark {
+	--theme-color: #ddd;
+	--github: var(--bg-body);
+	--input-bg: #111;
+	--input-shadow: #555;
+	--input-text: white;
+	--input-border: #222;
+	--bg-body: #212121;
+	--text-body: #fff;
+	--bg-sidebar: #181818;
+	--text-anchor: #fff;
+
+	--text-headers: #fff;
+	--text-links: #fff;
+
+	--code-text: #fff;
+	--code-bg: #424242;
+	--pre-bg: #171717;
+
+	--blockquote-border: #ffffff26;
+	--blockquote-text: #fff;
+
+	--table-border-head: #ffffff26;
+	--table-border-body: #ffffff0d;
+
+	--tip-border: rgb(255, 213, 0);
+	--tip-bg: rgba(255, 213, 0, 0.1);
+
+	--accent-border: rgb(0, 162, 255);
+	--accent-bg: rgba(0, 162, 255, 0.1);
+
+	--search-text: #fff;
+	--search-sub: #ccc;
+	--search-bg: #ffffff0d;
+	--hr-border: #ffffff26;
+}
+/* ====== Apply colors ====== */
+body {
+	background-color: var(--bg-body);
+	color: var(--text-body);
+}
+.sidebar {
+	background-color: var(--bg-sidebar);
+}
+.anchor span {
+	color: var(--text-anchor);
+}
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section em,
+.markdown-section a,
+.markdown-section strong {
+	color: var(--text-headers);
+}
+.markdown-section code,
+.markdown-section pre {
+	color: var(--code-text);
+	border-radius: 0.25rem;
+}
+.markdown-section pre::after,
+.markdown-section output::after,
+.markdown-section pre > code,
+.copy-btn {
+	color: var(--code-text) !important;
+}
+
+.markdown-section code {
+	background-color: var(--code-bg);
+}
+.markdown-section pre code,
+.markdown-section pre {
+	background-color: var(--pre-bg);
+}
+.github-corner {
+	display: none;
+}
+.markdown-section pre {
+	border-radius: 8px;
+}
+.markdown-section blockquote {
+	border-left-color: var(--blockquote-border);
+	color: var(--blockquote-text);
+}
+.markdown-section p.tip {
+	border-left: 4px solid var(--tip-border);
+	background-color: var(--tip-bg);
+}
+.markdown-section p.warn {
+	border-left: 4px solid var(--accent-border);
+	background-color: var(--accent-bg);
+}
+.sidebar-toggle-button span {
+	background-color: var(--text-body);
+}
+.search h2 {
+	color: var(--search-text);
+}
+.search p {
+	color: var(--search-sub);
+}
+.sidebar ul li a,
+.sidebar > h1 a {
+	color: var(--text-body);
+}
+.search {
+	padding-top: 24px !important;
+	border: none !important;
+}
+.search input {
+	background-color: var(--input-bg);
+	color: var(--input-text);
+	border: 1px solid var(--input-border) !important;
+}
+.search input:focus {
+	box-shadow: 0 0 5px var(--input-shadow) !important;
+	border: 1px solid var(--input-border) !important;
+}
+.markdown-section hr {
+	border-bottom: 2px solid var(--hr-border) !important;
+}
+.search .matching-post {
+	border-bottom: 1px solid var(--hr-border) !important;
+}
+.markdown-section p.tip code,
+.markdown-section p.warn code {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+body,
+.sidebar,
+.anchor span,
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section em,
+.markdown-section a,
+.markdown-section strong,
+.markdown-section code,
+.markdown-section pre,
+.markdown-section blockquote,
+.markdown-section th,
+.markdown-section td,
+.markdown-section p.tip,
+.markdown-section p.warn,
+.search,
+.search input,
+.search h2,
+.search p,
+.sidebar ul li a,
+.sidebar > h1 a,
+.sidebar-toggle,
+.sidebar-toggle-button span,
+.markdown-section hr,
+.search .matching-post {
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease,
+		border-color 0.2s ease;
+}
+.search input {
+	border-radius: 8px !important;
+}
+/* Table layout */
+table * {
+	border: none !important;
+	background-color: transparent !important;
+}
+.markdown-section th {
+	text-align: left;
+}
+.markdown-section thead th {
+	border-bottom: 1px solid var(--table-border-head) !important;
+}
+.markdown-section tbody td {
+	border-bottom: 1px solid var(--table-border-body) !important;
+}
+.markdown-section td,
+.markdown-section th {
+	padding-block: calc(0.25rem * 2.5) !important;
+}
+.markdown-section td:not(:last-child),
+.markdown-section th:not(:last-child) {
+	padding-inline-end: calc(0.25rem * 6) !important;
+}
+
+/* Special blocks */
+.markdown-section p.tip,
+.markdown-section p.warn {
+	border-radius: 0 8px 8px 0;
+	padding: 1rem;
+	border-left: 4px solid var(--accent-border);
+	background-color: var(--accent-bg);
+}
+.markdown-section p.tip:before {
+	display: none;
+}
+.sidebar-toggle {
+	background-color: transparent;
+}
+.clear-button {
+	display: none !important;
+}
+
+.sidebar .app-name {
+	text-align: left;
+	padding-left: 15px;
+}
+.app-sub-sidebar li {
+	position: relative;
+	padding-left: 12px;
+}
+pre {
+	position: relative;
+}
+.markdown-section pre::after,
+.markdown-section output::after,
+.copy-btn {
+	font-size: 0.7rem;
+}
+.copy-btn {
+	position: absolute;
+	top: 0;
+	right: 0px;
+	padding: 1rem;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	line-height: 15px;
+	justify-content: center;
+	transition: opacity 0.2s;
+}
+
+.copy-btn::after {
+	content: attr(data-text);
+}
+
+.copy-btn .copy-icon svg {
+	width: 15px;
+	height: 15px;
+}
+.copy-btn .copy-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 4px;
+	fill: var(--codeTextColor) !important;
+}
+
+.app-sub-sidebar li::before {
+	content: '';
+	height: 6px;
+	width: 6px;
+	position: absolute;
+	top: 50%;
+	padding-right: 0;
+	border-radius: 100%;
+	left: 0;
+	transform: translate(0, -50%);
+	background-color: var(--sidebarSubLink);
+}
+.app-sub-sidebar li.active::before {
+	background-color: var(--accent);
+}
+.search input {
+	border-radius: 8px;
+	margin: 0 12px;
+}
+pre::after {
+	right: unset !important;
+	left: 0;
+	padding: 1rem !important;
+}
+pre {
+	padding: 2.5rem 1rem 1rem 1rem !important;
+}
+pre code {
+	padding: 0 !important;
+}
+#docsify-darklight-theme p {
+	display: none;
+}
+#docsify-darklight-theme {
+	position: static !important;
+	margin-bottom: 12px;
+}
+.clear-button svg {
+	scale: 1.5;
+}
+.clear-button svg circle {
+	fill: var(--accent) !important;
+}

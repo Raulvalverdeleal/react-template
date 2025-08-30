@@ -1,4 +1,4 @@
-import { config } from '@assets';
+import { config } from '@utils';
 import { TranslationKey, TranslationsRecord, TranslatorConstructor } from '@types';
 
 export class Translator {
@@ -143,6 +143,6 @@ export class Translator {
 	}
 
 	static isSupportedLanguage(language: string) {
-		return config.supportedLanguages.includes(language);
+		return config.supportedLanguages.includes(language) || config.defaultLang === language;
 	}
 }

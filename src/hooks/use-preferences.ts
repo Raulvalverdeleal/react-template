@@ -1,5 +1,5 @@
-import { config } from '@/assets/index.ts';
 import { useApp } from './use-app.ts';
+import { Translator } from '@/utils/index.ts';
 
 export function usePreferences() {
 	const { preferences, setPreferences } = useApp();
@@ -7,7 +7,7 @@ export function usePreferences() {
 	return {
 		...preferences,
 		setLang(lang: string) {
-			if (!config.supportedLanguages.includes(lang)) {
+			if (!Translator.isSupportedLanguage(lang)) {
 				console.error(`Language ${lang} not spported`);
 				return;
 			}

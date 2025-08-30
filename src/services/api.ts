@@ -1,6 +1,6 @@
 import { mocks } from '@/assets/index.ts';
 import { ServiceOptions, SamplePayload, SampleResponse } from '@types';
-import { Enviroments, SuperFetch, apiRoot, enviroment } from '@utils';
+import { SuperFetch } from '@utils';
 
 export class Api extends SuperFetch {
 	constructor(options: ServiceOptions) {
@@ -13,7 +13,3 @@ export class Api extends SuperFetch {
 		return this.fake<SampleResponse>(mocks.responses.doSomenthing);
 	}
 }
-export const api = new Api({
-	logRequests: enviroment !== Enviroments.PRO,
-	root: `${apiRoot}/my-app-router`,
-});

@@ -1,4 +1,5 @@
 import { translationsTemplate } from '@assets';
+import { CSSProperties } from 'react';
 
 export type IconName =
 	| 0

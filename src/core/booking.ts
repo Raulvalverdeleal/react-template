@@ -1,7 +1,6 @@
 import { StateOptions, BookingData, Product, ContactDetail, Shift } from '@types';
 import { State, parseDate } from '@utils';
 import { mocks } from '@assets';
-
 export class Booking extends State<BookingData> {
 	constructor(booking: Partial<BookingData>, options?: StateOptions) {
 		super({ ...(mocks.default.booking as BookingData), ...booking }, options);
@@ -236,5 +235,3 @@ export class Booking extends State<BookingData> {
 		return this.entries()[Symbol.iterator]();
 	}
 }
-
-export const booking = new Booking(mocks.default.booking as BookingData);

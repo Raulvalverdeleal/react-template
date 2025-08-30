@@ -1,8 +1,7 @@
-import { config } from '@/assets/index.ts';
 import { useTranslator } from '@/hooks/use-translator.ts';
 import { buttonVariants } from '@/styles/variants.ts';
 import { Icon } from '@components';
-import { normalizePhoneNumber } from '@utils';
+import { normalizePhoneNumber, config } from '@utils';
 
 export function ErrorPage() {
 	const __ = useTranslator();

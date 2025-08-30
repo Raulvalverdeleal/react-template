@@ -1,9 +1,7 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { enviroment, Enviroments } from '@utils';
-import { GlobalDialog, PageWrapper } from '@components';
-import { Toaster } from 'sonner';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { config, Enviroments } from '@utils';
+import { PageWrapper } from '@components';
 import { useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
 
 export function App() {
 	const navigate = useNavigate();
@@ -20,7 +18,7 @@ export function App() {
 		const isLocalhost = host.includes('localhost');
 		const isPreproduction = host.includes('test'); //example: test-react-template.com
 
-		if (enviroment !== Enviroments.PRO && !isLocalhost && !isPreproduction) {
+		if (config.enviroment !== Enviroments.PRO && !isLocalhost && !isPreproduction) {
 			throw new Error('Invalid enviroment, should be production');
 			//send email, trigger sentry etc.
 		}
@@ -34,13 +32,5 @@ export function App() {
 		};
 	}, []);
 
-	return (
-		<AnimatePresence mode="wait">
-			<PageWrapper>
-				<Outlet />
-				<Toaster position="bottom-center" />
-				<GlobalDialog />
-			</PageWrapper>
-		</AnimatePresence>
-	);
+	return <PageWrapper />;
 }

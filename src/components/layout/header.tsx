@@ -1,6 +1,5 @@
-import { config } from '@/assets/index.ts';
-import { usePreferences } from '@/hooks/use-preferences.ts';
-import { useTranslator } from '@/hooks/use-translator.ts';
+import { config } from '@utils';
+import { useTranslator, usePreferences } from '@hooks';
 import {
 	Icon,
 	Select,

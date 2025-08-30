@@ -1,10 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage, ErrorPage, NotFoundPage } from '@components';
+import { HomePage, ErrorPage, NotFoundPage, AppProvider } from '@components';
 import { App } from './app.tsx';
 
 export const router = createBrowserRouter([
 	{
-		element: <App />,
+		element: (
+			<AppProvider>
+				<App />
+			</AppProvider>
+		),
 		children: [
 			{
 				index: true,

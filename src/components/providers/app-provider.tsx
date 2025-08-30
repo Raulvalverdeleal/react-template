@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import { user } from '@core';
 import { AppProviderProps, UseAppContext } from '@types';
 import { AppContext } from '@contexts';
-import { booking } from '@/core/booking.ts';
-import { getLocalStorageItem, StorageKeys } from '@/utils/index.ts';
+import { getLocalStorageItem, StorageKeys, user, booking } from '@utils';
 import { translationsTemplate } from '@/assets/index.ts';
 
 export function AppProvider({ children }: AppProviderProps) {

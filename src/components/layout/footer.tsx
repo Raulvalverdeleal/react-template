@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Icon } from '../ui/Icon.tsx';
-import { config } from '@/assets/index.ts';
+import { Icon } from '@components';
+import { config } from '@utils';
 
 export function Footer() {
 	useEffect(() => {

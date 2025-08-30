@@ -1,5 +1,5 @@
 import { StateOptions, UserData } from '@types';
-import { getLocalStorageItem, State, StorageKeys } from '@utils';
+import { State } from '@utils';
 import { mocks } from '@assets';
 
 export class User extends State<UserData> {
@@ -30,7 +30,3 @@ export class User extends State<UserData> {
 		return this.setData(mocks.default.user);
 	}
 }
-
-export const user = new User(getLocalStorageItem(StorageKeys.USER, mocks.default.user), {
-	localStorageKey: StorageKeys.USER,
-});

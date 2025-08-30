@@ -46,7 +46,7 @@ The following plugins are used:
 ## Typescript
 
 - `@` → `src/*` (default alias used by shadcn components).
-- One alias per top-level folder in `src`:
+- Aliases for top-level folders inside `src`:
     - `@assets`
     - `@utils`
     - `@types`
@@ -57,10 +57,11 @@ The following plugins are used:
     - `@core`
     - `@hooks`
 
-?> Whenever you add a new file inside one of these folders, remember to export it in the folder’s index.ts. That way, you can import it directly from the alias instead of navigating deep into paths.
+?> When adding a new file to one of these folders, make sure to export it from the folder’s `index.ts`.
+This allows you to import it directly from the alias instead of writing long relative paths or multiple separate import lines.
 
 !> Because of the `react-refresh/only-export-components` rule, you cannot use: `export * from '@/components/ui/alert-dialog.tsx'`
-Instead, you must export items one by one. Alternatively, you can disable that rule if you prefer not to enforce it.
+You must export items individually instead. Alternatively, you can disable that rule if you prefer not to enforce it.
 
 ---
 

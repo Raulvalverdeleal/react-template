@@ -107,11 +107,11 @@ body {
 }
 
 .markdown-section code {
-	background-color: var(--code-bg);
+	background-color: var(--code-bg) !important;
 }
 .markdown-section pre code,
 .markdown-section pre {
-	background-color: var(--pre-bg);
+	background-color: var(--pre-bg) !important;
 }
 .github-corner {
 	display: none;
@@ -163,9 +163,12 @@ body {
 .search .matching-post {
 	border-bottom: 1px solid var(--hr-border) !important;
 }
+table *:not(code) {
+	background-color: transparent;
+}
 .markdown-section p.tip code,
 .markdown-section p.warn code {
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.075) !important;
 }
 body,
 .sidebar,
@@ -230,8 +233,6 @@ table * {
 .markdown-section p.warn {
 	border-radius: 0 8px 8px 0;
 	padding: 1rem;
-	border-left: 4px solid var(--accent-border);
-	background-color: var(--accent-bg);
 }
 .markdown-section p.tip:before {
 	display: none;

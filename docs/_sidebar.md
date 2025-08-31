@@ -10,6 +10,6 @@
 - [styles](./content/styles.md)
 - [types](./content/types.md)
 - [utils](./content/utils.md)
-- [bin](/content/bin.md)
+- [bins](/content/bins.md)
 - [scripts](./content/scripts.md)
 - [docs](/content/docs.md)

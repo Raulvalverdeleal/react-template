@@ -63,24 +63,10 @@ The root `App` component is responsible for:
   The `checkEnvironment()` function ensures the app is running in the correct environment. If the environment is invalid (e.g., production host with a non-production config), it will throw an error. Adjust this check to match your deployment workflow.
 
 !> **Global error handling** should be treated as a **fallback**, not the primary way to handle errors.
-For a more user-friendly approach to known errors (e.g., API responses), see [GlobalDialog](/content/components.md#globaldialog) or use `toast.error(__("message"))`
+For a more user-friendly approach to known errors (e.g., API responses), see [ErrorDialog](/content/components.md#errordialog) or use `toast.error(__("message"))`
 
 ---
 
 ## page-wrapper.tsx
 
-Defines the base layout for every page in the app. It handles the following responsibilities:
-
-- **Page transitions**  
-  Applies smooth opacity transitions between pages using [framer-motion](https://motion.dev/docs/react).
-
-- **Shared layout**  
-  Renders global UI components (e.g., `Header`, `Footer`, `Toaster`, `GlobalDialog`) and includes them conditionally depending on page configuration.
-
-- **Secured pages**  
-  Protects routes by either redirecting to the login page or managing authentication when the user is not logged in.
-
-- **Outlet**  
-  Hosts the [`<Outlet />`](https://api.reactrouter.com/v7/functions/react_router.Outlet.html) component, which renders the actual page components defined in the `BrowserRouter` configuration (`router.tsx`).
-
-?> For secured pages, you can swap `<Loader />` with `<Navigate to="/login" />` to perform an immediate redirect. In cases where authentication is token-based (e.g., from a URL), handling it directly in PageWrapper with a loader might be the better fit. Pick the approach that matches your project’s flow.
+See `page-wrapper.tsx` docs [here](/content/components.md#page-wrappertsx)

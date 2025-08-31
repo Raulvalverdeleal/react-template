@@ -1,6 +1,6 @@
 import { useApp } from './use-app.ts';
 import { TranslationKey } from '@/types/global.js';
-import { Translator } from '@/utils/index.ts';
+import { config, Translator } from '@/utils/index.ts';
 import { translationsTemplate } from '@/assets/index.ts';
 
 export function useTranslator() {
@@ -10,7 +10,7 @@ export function useTranslator() {
 		return Translator.translate(key, {
 			translations: translationsTemplate,
 			placeholders: placeholders,
-			fallbackLang: 'es',
+			fallbackLang: config.defaultLang,
 			lang: preferences.lang,
 		});
 	};

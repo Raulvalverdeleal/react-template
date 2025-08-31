@@ -15,7 +15,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
 	const forceRender = useCallback(() => {
 		setForcedRenders((x) => x + 1);
-	}, [setForcedRenders]);
+	}, []);
 
 	user.setRender(forceRender);
 	booking.setRender(forceRender);

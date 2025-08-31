@@ -13,7 +13,7 @@ export type PageWrapperProps = {
 	children?: ReactNode;
 };
 
-export type IconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'name'> & {
+export type IconProps = Omit<React.HTMLAttributes<HTMLSpanElement>, 'name'> & {
 	name: IconName;
 	size?: number;
 };

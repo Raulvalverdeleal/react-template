@@ -25,7 +25,7 @@ export function PageWrapper() {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.1 }}
-					className={'w-full h-full'}
+					className={'w-full h-full inside-wrapper overflow-scroll'}
 				>
 					{(secured && true) /* required condition ex: user.token*/ || !secured ? (
 						<Outlet />

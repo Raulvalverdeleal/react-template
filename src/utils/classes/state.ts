@@ -5,13 +5,11 @@ export class State<T> {
 	private _data: T;
 	protected localStorageKey;
 	protected sessionStorageKey;
-	protected dataEffect;
 
 	constructor(data: T, options?: StateOptions) {
 		this._data = JSON.parse(JSON.stringify(data));
 		this.localStorageKey = options?.localStorageKey;
 		this.sessionStorageKey = options?.sessionStorageKey;
-		this.dataEffect = new Map();
 	}
 
 	get data() {
@@ -47,7 +45,5 @@ export class State<T> {
 		if (this.sessionStorageKey) {
 			sessionStorage.setItem(this.sessionStorageKey, JSON.stringify(this._data));
 		}
-
-		this.dataEffect.forEach((callback) => callback());
 	}
 }

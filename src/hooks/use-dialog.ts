@@ -10,6 +10,6 @@ export function useDialog() {
 		close() {
 			setDialogData(null);
 		},
-		isOpen: !!dialogData,
+		currentView: dialogData?.view ?? null,
 	};
 }

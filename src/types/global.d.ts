@@ -101,10 +101,6 @@ type DialogDataMap = {
 		title: string;
 		message: string;
 	};
-	'unexpected-error': {
-		title: string;
-		message: string;
-	};
 };
 
 export type DialogView = keyof DialogDataMap;
@@ -112,6 +108,7 @@ export type DialogView = keyof DialogDataMap;
 export type BaseDialogData<K extends DialogView> = {
 	view: K;
 	className?: string;
+	showCloseButton?: boolean;
 } & DialogDataMap[K];
 
 export type DialogData = {

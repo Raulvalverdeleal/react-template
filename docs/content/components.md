@@ -12,17 +12,7 @@ Every react component is exported in `@/components/index.tsx`, no exception. The
 
 ---
 
-## dialogs
-
-**Adding a new dialog view**  
-(`ErrorDialog` will serve as a example)
-
-1. Create the view component in `@/components/dialogs` folder
-2. Export it in `@/components/index.tsx`
-3. Go to `@/types/global.d.ts` and in `DialogDataMap` add what you need. Note that the key will be the view name.
-4. Import the view in `@/components/ui/global-dialog.tsx` and place it where the rest of the views are.
-
-### Error Dialog
+## Error Dialog
 
 The `ErrorDialog` is a view for the `GlobalDialog` component. It accepts a `title` and a `message` and you can optionally add contact buttons similar to those in `ErrorPage`.
 It’s perfect for handling known errors, such as API responses. Example usage:
@@ -44,19 +34,21 @@ async function getData() {
 
 ---
 
-## layout
-
-### Footer
+## Footer
 
 The `Footer` component renders a bottom bar with social media links (Instagram, LinkedIn, GitHub) using icons.
 It also adds and removes a `has-footer` class on the document body when mounted/unmounted.
 
-### Header
+---
+
+## Header
 
 The `Header` component provides a top navigation bar with branding (logo/icon) and a language selector.
 It integrates user preferences and translation utilities to ensure the app adapts to user language settings, and toggles a `has-header` class on the document body while mounted.
 
-### Page Wrapper
+---
+
+## Page Wrapper
 
 Defines the base layout for every page in the app. It handles the following responsibilities:
 
@@ -76,24 +68,24 @@ Defines the base layout for every page in the app. It handles the following resp
 
 ---
 
-## pages
-
-### Error Page
+## Error Page
 
 The `ErrorPage` component shows a generic error message and offers quick contact options—call, WhatsApp, or email—for support. Users are redirected here whenever an uncaught error occurs.
 
-### Home Page
+---
+
+## Home Page
 
 The `HomePage` component displays a simple landing view as a sample.
 It uses the translator hook for text and includes a button that intentionally throws an error when clicked.
 
-### Not Found Page
+---
+
+## Not Found Page
 
 The `NotFoundPage` component displays a 404 error message when a page is not found.
 
 ---
-
-## providers
 
 ## app-provider.tsx
 
@@ -108,28 +100,32 @@ The `AppProvider` component sets up the [global app context](/content/contexts.m
 
 ---
 
-## ui
-
-### Error boundary
+## Error boundary
 
 The `ErrorBoundary` component catches JavaScript errors in its child components and displays a fallback UI.
 
-### Form step controls
+---
+
+## Form step controls
 
 The `FormStepControls` component renders a visual stepper interface for multi-step forms.
 
-- The FormStepControls component renders a horizontal stepper for multi-step forms.
+### Features:
+
+- Renders a horizontal stepper for multi-step forms.
 - Each step is a circular button displaying a custom icon, connected by lines that indicate progress.
 - The current step is visually highlighted.
 - Steps can be disabled based on conditions, which grays them out and prevents navigation.
 - Connecting lines visually reflect progress between enabled steps.
 - Clicking an enabled step triggers the onStepClick callback to navigate between steps.
 
-### Global dialog
+---
+
+## Global dialog
 
 The `GlobalDialog` component extends a standard Dialog but must exist as a single instance for the `useDialog()` hook to work correctly.
 
-**Features:**
+### Features:
 
 - Renders a modal that displays different views based on `dialogData`.
 - Built with Radix UI's `DialogPrimitive` for accessibility and smooth animations.
@@ -137,27 +133,40 @@ The `GlobalDialog` component extends a standard Dialog but must exist as a singl
 - Includes an optional close button to dismiss the dialog.
 - Supports custom class names and a centered layout.
 
-### Icon
+### Adding a dialog view
 
-The `Icon` component renders an SVG icon by referencing a sprite sheet and allows customizing its size and additional HTML attributes.
+-   1. Create the view component in `@/components/dialogs` folder
+-   2. Export it in `@/components/index.tsx`
+-   3. Go to `@/types/global.d.ts` and in `DialogDataMap` add what you need. Note that **the key will be the view name**.
+-   4. Import the view in `@/components/ui/global-dialog.tsx` and place it where the rest of the views are.
 
-**Key features:**
+---
+
+## Icon
+
+The `Icon` component renders an SVG icon by referencing a sprite sheet and allows customizing its size and additional HTML attributes. [How to add a new icon](/content/assets.md#adding-an-svg)
+
+### Features:
 
 - `name` prop selects which icon to render from the sprite sheet.
 - `size` prop controls the width and height of the icon (default: 24px).
 - Supports standard HTML attributes and custom CSS classes.
 
-### Loader
+---
+
+## Loader
 
 The `Loader` component displays a full-screen loading spinner when the loading prop is true.
 
-**Key features:**
+### Features:
 
 - Covers the entire parent container with a centered spinner.
 - Smoothly hides itself and disables pointer events when `loading` is `false`.
 - Uses the `Loader2Icon` with a spin animation.
 
-### Library components
+---
+
+## Library components
 
 | name            | library                          |  docs                                                         |
 | --------------- | -------------------------------- | ------------------------------------------------------------- |

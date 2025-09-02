@@ -1,5 +1,6 @@
-import { LoaderProps } from '@/types/components.js';
 import { Loader2Icon } from 'lucide-react';
+
+type LoaderProps = { loading: boolean };
 
 export function Loader({ loading }: LoaderProps) {
 	return (

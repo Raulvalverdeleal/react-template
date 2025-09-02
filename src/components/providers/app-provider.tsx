@@ -1,8 +1,12 @@
-import { useState, useCallback, useEffect } from 'react';
-import { AppProviderProps, UseAppContext } from '@types';
+import { useState, useCallback, useEffect, ReactNode } from 'react';
+import { UseAppContext } from '@types';
 import { AppContext } from '@contexts';
 import { getLocalStorageItem, StorageKeys, user, booking } from '@utils';
 import { translationsTemplate } from '@/assets/index.ts';
+
+type AppProviderProps = {
+	children: ReactNode;
+};
 
 export function AppProvider({ children }: AppProviderProps) {
 	const [forcedRenders, setForcedRenders] = useState<UseAppContext['forcedRenders']>(0);

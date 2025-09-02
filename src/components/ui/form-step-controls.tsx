@@ -1,6 +1,13 @@
 import { Button, Icon } from '@components';
-import type { FormStepControlsProps } from '@types';
+import type { IconName } from '@types';
 import { Fragment } from 'react';
+
+type FormStepControlsProps = {
+	steps: IconName[];
+	current: number;
+	disabled: ((order: number) => boolean)[];
+	onStepClick: (step: number) => unknown;
+};
 
 export function FormStepControls({ steps, current, onStepClick, disabled }: FormStepControlsProps) {
 	return (
@@ -28,7 +35,7 @@ export function FormStepControls({ steps, current, onStepClick, disabled }: Form
 								size-10 flex items-center justify-center rounded-full 
 							`}
 							>
-								<Icon name={step.iconName} />
+								<Icon name={step} />
 							</Button>
 						</div>
 					</Fragment>

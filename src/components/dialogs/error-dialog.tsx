@@ -10,7 +10,11 @@ export function ErrorDialog({ title, message }: DialogDataMap['error']) {
 			<DialogTitle className="flex items-center space-x-2 justify-center">
 				<span>{title}</span>
 			</DialogTitle>
-			<DialogDescription className="text-center">{message}</DialogDescription>
+			{message ? (
+				<DialogDescription className="text-center">{message}</DialogDescription>
+			) : (
+				<DialogDescription className="text-center sr-only">{__('no description-provided')}</DialogDescription>
+			)}
 			<Button onClick={() => dialog.close()}>{__('Understood')}</Button>
 		</>
 	);

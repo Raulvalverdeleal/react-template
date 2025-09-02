@@ -15,7 +15,15 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from '@components';
-import { ComboboxProps } from '@types';
+
+export type ComboboxProps = {
+	onValueChange: (value: string) => void;
+	value: string;
+	placeholder: string;
+	options: { value: string; name: string }[];
+	searchFallback: string;
+	disabled?: boolean;
+};
 
 export function Combobox({ onValueChange, value, placeholder, options, searchFallback, disabled }: ComboboxProps) {
 	const [open, setOpen] = React.useState(false);

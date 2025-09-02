@@ -35,11 +35,16 @@ export class CacheManager<Tables extends TableSchema> {
 		return entry.value as Tables[TableName];
 	}
 
-	add<TableName extends keyof Tables>(table: TableName, key: string | number, item: Tables[TableName]): void {
+	add<TableName extends keyof Tables>(
+		table: TableName,
+		key: string | number,
+		item: Tables[TableName],
+		ttl?: number
+	): void {
 		const tableMap = this.#memory.get(table);
 		if (!tableMap) throw new Error(`table ${String(table)} does not exist`);
 
-		const expiresAt = Date.now() + 5 * 60 * 1000;
+		const expiresAt = ttl ?? Date.now() + 5 * 60 * 1000;
 
 		tableMap.set(key, { value: item, expiresAt });
 	}

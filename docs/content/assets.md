@@ -3,6 +3,8 @@
 Location of every type of resource the application would need, from `.json` to `.mp4`.  
 Here is some quick overview of the existing assets.
 
+---
+
 ## mocks.json
 
 Fake data & default values
@@ -13,9 +15,21 @@ Fake data & default values
 | `fake`      |                                       | Your models filled up with data, it may be useful for some sort of formularies or similar |
 | `responses` | `@/services/api.ts`                   | Api responses mocks, for full application flow before the backend is ready                |
 
+---
+
 ## icons.svg
 
-The place to add your custom svgs, se how [here](/content/icons.md)
+The place to add your svgs.
+
+### Adding an `svg`
+
+-   1. paste your svg inside the root `svg` tag
+-   2. Wrap it with a symbol tag
+-   3. The symbol id will be your icon name.
+-   4. The symbol `viewbox` must be `viewBox="0 0 <width> <height>"`of the svg you've included.
+-   5. Add the id to the `IconName` type in `@/types/global.d.ts`
+
+---
 
 ## translations.json
 

@@ -1,12 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage, ErrorPage, NotFoundPage, AppProvider } from '@components';
+import { HomePage, ErrorPage, NotFoundPage, AppProvider, ErrorBoundary } from '@components';
 import { App } from './app.tsx';
 
 export const router = createBrowserRouter([
 	{
 		element: (
 			<AppProvider>
-				<App />
+				<ErrorBoundary fallback={<ErrorPage />}>
+					<App />
+				</ErrorBoundary>
 			</AppProvider>
 		),
 		children: [

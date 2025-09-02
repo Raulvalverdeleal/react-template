@@ -12,4 +12,3 @@
 - [utils](./content/utils.md)
 - [bins](/content/bins.md)
 - [scripts](./content/scripts.md)
-- [docs](/content/docs.md)

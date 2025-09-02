@@ -83,23 +83,10 @@ export type StateOptions = {
 	localStorageKey?: string;
 };
 
-export type PageOpacityMotion = {
-	opacity: number;
-	x?: number;
-	y?: number;
-};
-
-export type PageMotion = {
-	initial?: PageOpacityMotion;
-	animate?: PageOpacityMotion;
-	exit?: PageOpacityMotion;
-	transition?: { duration: number };
-};
-
 type DialogDataMap = {
 	error: {
 		title: string;
-		message: string;
+		message?: string;
 	};
 };
 

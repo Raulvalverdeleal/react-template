@@ -1,11 +1,13 @@
-# Bin
+# Bins
 
 The scripts located in the `/bin` folder follow two simple rules:
 
-- Standalone: no external libraries, just vanilla JS in a Node environment.
-- Simple: easy to use and integrate into the project.
+- **Standalone**  
+  no external libraries, just vanilla JS in a Node environment.
+- **Simple**  
+  Easy to use and integrate into your project. Prioritize **readability**: if a command is clearer in `JS` than in `bash`, use bash.
 
-?> _TIP_ All bins (except **translate**) accept the same parameters as their corresponding config properties.  
+?> All bins (except **translate**) accept the same parameters as their corresponding config properties.  
 This makes them flexible, since you don’t need to pass every argument manually — the config acts as a set of default values.  
 See how **sftp** is used for both pre-production and production deployments.
 
@@ -28,17 +30,13 @@ See how **sftp** is used for both pre-production and production deployments.
 
 Translate iterates over the files located in `searchIn` directory building the template as you've specified in the config.
 It is possible to generate both templates, or just the PHP one depends on your workflow.
-Play around by adding / removing options and see how the output changes. Usage example:
+Play around by adding / removing options and see how the output changes.
 
-```json
-{
-	"translate": "node bin/translate.js"
-}
+### Usage
+
+```bash
+npm run translate
 ```
-
-> See more details about working with wordpress / PHP [here]().
-
-?> _TODO:_ with languages option, load translations from a csv or create one.
 
 ---
 
@@ -51,7 +49,7 @@ Play around by adding / removing options and see how the output changes. Usage e
 By mistake, you might run `npm run deploy:pro` on the wrong branch.  
 This script prevents that by checking the active branch and exiting if it doesn’t match the configured `expectedBranch`.
 
-Example of usage
+### Usage
 
 ```json
 {
@@ -72,7 +70,7 @@ Example of usage
 | action | --action         | -a    | Operation to perform: `get` (download) or `put` (upload) | put              |
 | dev    | --dev            | -d    | Shows sftp output                                        | 1                |
 
-!> This bin does not handle passwords. It requires your public SSH key to be added to the server’s **authorized_keys**. This ensures sensitive information is not stored in the repository.
+!> This bin does not handle passwords. It requires your public SSH key to be added to the server’s **authorized_keys**. This ensures sensitive information is not stored in the repository or even in the .env file.
 
 Usually you may want to keep user & host in config, so you can create multiple scripts, for example:
 

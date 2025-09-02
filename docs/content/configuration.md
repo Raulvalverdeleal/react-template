@@ -8,8 +8,6 @@ This template comes with pre-configured things such us `tsconfig` `vite.config` 
 
 ### Plugins
 
-The following plugins are used:
-
 - `tsconfigPaths()`  
   Enables path aliases defined in `tsconfig.json`.
 
@@ -76,15 +74,10 @@ You must export items individually instead. Alternatively, you can disable that 
 
 ### Key rules
 
-- Inherits recommended rules from React ecosystem + refresh.
-- Disabled:
-    - `react/react-in-jsx-scope`: (not needed in React 17+).
-    - `react-hooks/exhaustive-deps`: This rule often suggests incorrect or noisy dependencies (e.g. functions recreated on each render, or values that don’t actually need to trigger the effect). In practice, I usually end up adding `// eslint-disable-line` to most `useEffect` calls, so disabling it significantly improves development flow.
-
-### Custom rules
-
 - `@typescript-eslint/no-unused-vars`: ignores vars starting with \_.
 - `comma-dangle`: always-multiline (except functions → never).
+- `react/react-in-jsx-scope`: (not needed in React 17+).
+- `react-hooks/exhaustive-deps`: This rule often suggests incorrect or noisy dependencies (e.g. functions recreated on each render, or values that don’t actually need to trigger the effect). In practice, I usually end up adding `// eslint-disable-line` to most `useEffect` calls, so disabling it significantly improves development flow.
 
 ---
 

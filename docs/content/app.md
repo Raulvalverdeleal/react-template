@@ -24,8 +24,6 @@ Entry point where React mounts.
 createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />);
 ```
 
-> This is the place to integrate with [sentry](https://docs.sentry.io/platforms/javascript/guides/react/) or similar libraries.
-
 ---
 
 ## router.tsx

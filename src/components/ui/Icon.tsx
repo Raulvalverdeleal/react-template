@@ -1,5 +1,10 @@
-import type { IconProps } from '@types';
+import type { IconName } from '@types';
 import { icons } from '@assets';
+
+type IconProps = Omit<React.HTMLAttributes<HTMLSpanElement>, 'name'> & {
+	name: IconName;
+	size?: number;
+};
 
 export function Icon({ name, size = 24, ...attributes }: IconProps) {
 	return (

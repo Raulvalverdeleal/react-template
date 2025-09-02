@@ -3,7 +3,6 @@
 	--siteFont: 'Inter', Helvetica Neue, Arial, sans-serif !important;
 	--bg-body: #fff;
 	--theme-color: #333;
-	--github: var(--bg-body);
 
 	--text-body: #0d0d0d;
 	--bg-sidebar: #f9f9f9;
@@ -113,8 +112,13 @@ body {
 .markdown-section pre {
 	background-color: var(--pre-bg) !important;
 }
-.github-corner {
-	display: none;
+.github-corner svg path {
+	/* display: none; */
+	fill: var(--theme-color) !important;
+}
+.github-corner svg path.octo-body,
+.github-corner svg path.octo-arm {
+	fill: var(--bg-body) !important;
 }
 .markdown-section pre {
 	border-radius: 8px;

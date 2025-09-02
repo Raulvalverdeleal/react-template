@@ -4,6 +4,18 @@ In addition to the vite scripts (`dev`, `start`, `build`, `preview`) **React Tem
 
 ---
 
+## start:docs
+
+```bash
+npm run start:docs
+```
+
+?> _npx docsify-cli serve docs_
+
+Serves the docs folder you are reading right now locally.
+
+---
+
 ## format
 
 ```bash

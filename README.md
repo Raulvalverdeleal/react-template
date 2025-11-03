@@ -4,11 +4,9 @@
 
 ### Highlights
 
-- `@hooks` / `@components` / `@services` aliases
 - Multilanguage support
 - Simple `Header → Main → Footer` layout with transitions
 - Full error handling (boundary + onError)
-- Env separation: local / pre / prod
 - Utilities: dates, fetch, intervals, cookies…
 - Icon system via single `icons.svg`
 

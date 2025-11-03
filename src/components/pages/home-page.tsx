@@ -1,21 +1,63 @@
-import { useTranslator } from '@hooks';
-import { Button } from '@components';
+import { Card, CardContent } from '../ui/card.tsx';
 
 export function HomePage() {
-	const __ = useTranslator();
 	return (
-		<div className="inside p-4 flex-col space-y-5">
-			<h1>{__('Hello world!')}</h1>
-			<div className="grid grid-cols-2 gap-5">
-				<Button
-					variant={'destructive'}
-					onClick={() => {
-						throw new Error('message');
-					}}
-				>
-					{__('Throw unexpected error')}
-				</Button>
-			</div>
+		<div className="space-y-5 py-5">
+			<div className="h-10 w-100 bg-neutral-200 rounded-sm mb-8"></div>
+			<Card>
+				<CardContent>
+					<div className="h-10 w-150 bg-neutral-200 rounded-sm mb-8 max-w-full"></div>
+					<div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+						<div className="w-full bg-neutral-200 rounded-sm h-100"></div>
+						<div className="space-y-2">
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
+			<Card>
+				<CardContent>
+					<div className="h-10 w-150 bg-neutral-200 rounded-sm mb-8 max-w-full"></div>
+					<div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+						<div className="w-full bg-neutral-200 rounded-sm h-100"></div>
+						<div className="space-y-2">
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
+			<Card>
+				<CardContent>
+					<div className="h-10 w-150 bg-neutral-200 rounded-sm mb-8 max-w-full"></div>
+					<div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+						<div className="w-full bg-neutral-200 rounded-sm h-100"></div>
+						<div className="space-y-2">
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+							<div className="h-6 w-full bg-neutral-200 rounded-sm"></div>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
 		</div>
 	);
 }

@@ -1,5 +1,6 @@
-import { Button, Icon } from '@components';
-import type { IconName } from '@types';
+import { Button } from '@/components/ui/button.tsx';
+import { Icon } from '@/components/ui/Icon.tsx';
+import type { IconName } from '@/types/global.d.ts';
 import { Fragment } from 'react';
 
 type FormStepControlsProps = {

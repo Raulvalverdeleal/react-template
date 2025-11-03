@@ -1,5 +1,5 @@
-import { DialogData } from '@types';
-import { useApp } from '@hooks';
+import type { DialogData } from '@/types/global.d.ts';
+import { useApp } from '@/hooks/use-app.ts';
 
 export function useDialog() {
 	const { dialogData, setDialogData } = useApp();

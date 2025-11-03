@@ -1,7 +1,5 @@
 # Components
 
-Every react component is exported in `@/components/index.tsx`, no exception. The only export type in this folder is a `ReactNode`. Components folder is also divided in the followinw subdirectories:
-
 | Folder      | Purpose                                                         |
 | ----------- | --------------------------------------------------------------- |
 | `dialogs`   | Dialog views included in `global-dialog.tsx`.                   |

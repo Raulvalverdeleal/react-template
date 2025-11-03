@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect, ReactNode } from 'react';
-import { UseAppContext } from '@types';
-import { AppContext } from '@contexts';
-import { getLocalStorageItem, StorageKeys, user, booking } from '@utils';
-import { translationsTemplate } from '@/assets/index.ts';
+import { useState, useEffect, ReactNode } from 'react';
+import type { UseAppContext } from '@/types/core.d.ts';
+import { AppContext } from '@/contexts/app-context.tsx';
+import { getLocalStorageItem } from '@/utils/helpers.ts';
+import { StorageKeys } from '@/utils/symbols.ts';
 
 type AppProviderProps = {
 	children: ReactNode;
@@ -12,17 +12,13 @@ export function AppProvider({ children }: AppProviderProps) {
 	const [forcedRenders, setForcedRenders] = useState<UseAppContext['forcedRenders']>(0);
 	const [dialogData, setDialogData] = useState<UseAppContext['dialogData']>(null);
 	const [loading, setLoading] = useState<UseAppContext['loading']>(0);
-	const [translations, setTranslations] = useState<UseAppContext['translations']>(translationsTemplate);
 	const [preferences, setPreferences] = useState<UseAppContext['preferences']>(
 		getLocalStorageItem(StorageKeys.PREFERENCES, { lang: navigator.language })
 	);
 
-	const forceRender = useCallback(() => {
+	function forceRender() {
 		setForcedRenders((x) => x + 1);
-	}, []);
-
-	user.setRender(forceRender);
-	booking.setRender(forceRender);
+	}
 
 	useEffect(() => {
 		localStorage.setItem(StorageKeys.PREFERENCES, JSON.stringify(preferences));
@@ -39,8 +35,6 @@ export function AppProvider({ children }: AppProviderProps) {
 				setLoading,
 				preferences,
 				setPreferences,
-				translations,
-				setTranslations,
 			}}
 		>
 			{children}

@@ -6,8 +6,8 @@ import path from 'path';
 const config = {
 	searchIn: 'src',
 	fileExtensions: ['ts', 'tsx'],
-	languages: ["es", "fr", "it"],
-	json: "src/assets",
+	languages: ['es', 'fr', 'it'],
+	json: 'src/assets',
 	patterns: [
 		/__\([\s]{0,}"((?:\\.|[^"\\])*)"/g, //__("capture this")
 		/__\([\s]{0,}'((?:\\.|[^'\\])*)'/g, //__('capture this')
@@ -42,7 +42,7 @@ function exitIfNotFound(dir) {
 
 function extractTranslationsFromJSONFile(directory) {
 	const fileTranlations = new Set();
-	const json = getJSONData(directory)
+	const json = getJSONData(directory);
 	Object.values(json).forEach((translations) => fileTranlations.add(translations));
 	return fileTranlations;
 }
@@ -102,19 +102,19 @@ function buildJSON() {
 
 	sortedTranslations.forEach((key) => {
 		if (!config.languages) {
-			if (!previousData[key]) added++
-			data[key] = key
-			return
+			if (!previousData[key]) added++;
+			data[key] = key;
+			return;
 		}
 		data[key] = config.languages.reduce((acc, value) => {
-			acc[value] = null
-			return acc
-		}, {})
+			acc[value] = null;
+			return acc;
+		}, {});
 		if (!previousData[key]) {
-			added++
+			added++;
 		} else {
 			for (const lang of config.languages) {
-				data[key][lang] = previousData[key]?.[lang] ?? null
+				data[key][lang] = previousData[key]?.[lang] ?? null;
 			}
 		}
 	});
@@ -127,7 +127,6 @@ function buildJSON() {
 		process.exit(1);
 	}
 }
-
 
 function buildPHP() {
 	if (!config.php) return;
@@ -144,7 +143,7 @@ function buildPHP() {
 	});
 	sortedTranslations.forEach((t, index) => {
 		if (!previousTranlations.has(t)) added += 1;
-		data += `\n\t"${t}" => __("${t}","${config.php.template || "no-specified"}")${index === sortedTranslations.size - 1 ? '' : ','}`;
+		data += `\n\t"${t}" => __("${t}","${config.php.template || 'no-specified'}")${index === sortedTranslations.size - 1 ? '' : ','}`;
 	});
 
 	data += '\n];';
@@ -217,13 +216,12 @@ function resolvePath(str) {
 }
 
 function getJSONData(directory) {
-
 	if (!fs.existsSync(directory)) return {};
 	const content = fs.readFileSync(directory, 'utf-8');
 
 	try {
 		const json = JSON.parse(content);
-		return json
+		return json;
 	} catch (error) {
 		console.error(error);
 	}

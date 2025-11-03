@@ -1,10 +1,10 @@
-import { useTranslator } from '@/hooks/use-translator.ts';
 import { buttonVariants } from '@/styles/variants.ts';
-import { Icon } from '@components';
-import { normalizePhoneNumber, config } from '@utils';
+import { Icon } from '@/components/ui/Icon.tsx';
+import { normalizePhoneNumber } from '@/utils/helpers.ts';
+import data from '@/assets/data.json' with { type: 'json' };
+import { Link } from 'react-router-dom';
 
 export function ErrorPage() {
-	const __ = useTranslator();
 	return (
 		<div className="h-full flex flex-col items-center justify-center text-center px-4 space-y-6 my-auto">
 			<Icon name="error" size={40} className="text-destructive" />
@@ -14,7 +14,7 @@ export function ErrorPage() {
 				<a
 					target="_blank"
 					rel="noopener noreferrer"
-					href={`tel:${normalizePhoneNumber(config.contact.phone)}`}
+					href={`tel:${normalizePhoneNumber(data.contact.phone)}`}
 					className={buttonVariants({ size: 'lg', variant: 'outline' })}
 				>
 					<Icon name={'call'} />
@@ -23,7 +23,7 @@ export function ErrorPage() {
 				<a
 					target="_blank"
 					rel="noopener noreferrer"
-					href={`https://wa.me/${normalizePhoneNumber(config.contact.phone)}/?text=Hola%20necesito%20ayuda%20sobre%20mi%20reserva`}
+					href={`https://wa.me/${normalizePhoneNumber(data.contact.phone)}/?text=Hola%20necesito%20ayuda%20sobre%20mi%20reserva`}
 					className={buttonVariants({ size: 'lg', variant: 'outline' })}
 				>
 					<Icon name={'whatsapp'} />
@@ -32,12 +32,16 @@ export function ErrorPage() {
 				<a
 					target="_blank"
 					rel="noopener noreferrer"
-					href={`mailto:${config.contact.email}`}
+					href={`mailto:${data.contact.email}`}
 					className={buttonVariants({ size: 'lg', variant: 'outline' })}
 				>
 					<Icon name={'mail'} />
 					{__('Email')}
 				</a>
+				<Link to={'/'} className={buttonVariants({ size: 'lg', variant: 'default' })}>
+					<Icon name="arrow" />
+					{__('Back to home')}
+				</Link>
 			</div>
 		</div>
 	);

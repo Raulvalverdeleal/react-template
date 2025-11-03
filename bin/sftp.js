@@ -2,23 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 
-/**
- * KEY CONSIDERATIONS
- * - 1.0.0
- * - this script assumes you have added your ssh key to the server
- * - config values may be overwritten by args values
- * - use config as your default args to simplify the usage insead of
- *   passing every time action user host local remote.
- * - every key in config has it corresponding arg key with the following aliases, ex for `action`:
- *   * -a
- *   * -action
- *   * --action
- */
-/* CONFIG ======================================================= */
 /**@type {Options} */
 const config = {
 	user: 'root',
 	host: 'example.com',
+	port: 22,
 };
 /* ============================================================== */
 
@@ -55,9 +43,7 @@ function upload() {
 function download() {
 	const isFile = path.extname(args.remote) !== '';
 
-	const sftpCommand = isFile
-		? `get ${args.remote} ${args.local}`
-		: `lcd ${args.local}\ncd ${args.remote}\nget -r .`;
+	const sftpCommand = isFile ? `get ${args.remote} ${args.local}` : `lcd ${args.local}\ncd ${args.remote}\nget -r .`;
 
 	const sftpScript = `${sftpCommand}\nbye`;
 
@@ -70,16 +56,16 @@ function download() {
 
 function handleSftpConnection({ user, host }, sftpScript) {
 	try {
-		const sftpProcess = spawn('sftp', [`${user}@${host}`]);
+		const sftpProcess = spawn('sftp', [`-oPort=${config.port}`, `${user}@${host}`]);
 
 		sftpProcess.stdin.write(sftpScript);
 		sftpProcess.stdin.end();
 
 		if (args.debug) {
-			sftpProcess.stdout.on("data", (data) => {
+			sftpProcess.stdout.on('data', (data) => {
 				process.stdout.write(data);
 			});
-			sftpProcess.stderr.on("data", (data) => {
+			sftpProcess.stderr.on('data', (data) => {
 				process.stderr.write(data);
 			});
 		}
@@ -103,6 +89,7 @@ function loadArgs() {
 	const args = parseArgs();
 	const computedArgs = {
 		user: args['-u'] || args['--user'] || config.user,
+		port: args['-p'] || args['--port'] || config.port,
 		host: args['-h'] || args['--host'] || config.host,
 		local: resolvePath(args['-l'] || args['--local'] || config.local),
 		remote: args['-r'] || args['--remote'] || config.remote,
@@ -145,6 +132,7 @@ function parseArgs() {
 /**
  * @typedef {Object} Options
  * @property {string} [user]
+ * @property {number} [port]
  * @property {string} [host]
  * @property {string} [local]
  * @property {boolean} [debug]

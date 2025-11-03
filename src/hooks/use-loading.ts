@@ -1,10 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
-import { useApp, useTranslator } from '@hooks';
+import { useApp } from '@/hooks/use-app.ts';
 
 export function useLoading(options?: { showToast: boolean }) {
 	const { loading, setLoading } = useApp();
-	const __ = useTranslator();
 	const toastIds = useRef<Set<string | number>>(new Set());
 	const last = useRef(0);
 

@@ -1,6 +1,9 @@
-import { config } from '@utils';
-import { TranslationKey, TranslationsRecord, TranslatorConstructor } from '@types';
-
+type TranslationsRecord = Record<string, string | Record<string, string | null>>;
+type TranslatorConstructor = {
+	lang: string;
+	fallbackLang: string;
+	translations: TranslationsRecord;
+};
 export class Translator {
 	private rgx: RegExp;
 	private fallbackRgx: RegExp;
@@ -16,6 +19,10 @@ export class Translator {
 		this.fallbackRgx = new RegExp(`\\[:${this.fallbackLang}\\]([^\\[]+)\\[:`, 'g');
 	}
 
+	get language() {
+		return this.lang;
+	}
+
 	getTranslationCount() {
 		return Object.keys(this.translations).length;
 	}
@@ -26,7 +33,7 @@ export class Translator {
 		return this;
 	}
 
-	getTranslationValue(key: TranslationKey) {
+	getTranslationValue(key: string) {
 		const template = this.translations[key];
 		if (!template) {
 			return key;
@@ -37,7 +44,7 @@ export class Translator {
 		return template[this.lang] ?? key;
 	}
 
-	hasTranslation(key: TranslationKey) {
+	hasTranslation(key: string) {
 		return !!this.translations[key];
 	}
 
@@ -80,7 +87,7 @@ export class Translator {
 		});
 	}
 
-	get(str: TranslationKey, ...placeholders: (string | number)[]) {
+	get(str: string, ...placeholders: (string | number)[]) {
 		const result = this.extractTranslationFromString(this.getTranslationValue(String(str)));
 		return this.applyPlaceholdersToTemplate(result, ...placeholders);
 	}
@@ -94,55 +101,12 @@ export class Translator {
 		this.rgx = new RegExp(`\\[:${this.lang}\\]([^\\[]+)\\[:`, 'g');
 		return this;
 	}
+}
 
-	static translate(
-		key: TranslationKey,
-		{ translations, lang, placeholders = [] }: TranslatorConstructor & { placeholders: (string | number)[] }
-	) {
-		const value = translations[key];
-
-		if (!value) return key;
-
-		let template: string;
-
-		if (typeof value === 'string') {
-			template = value;
-		} else {
-			template = value[lang] ?? value[config.defaultLang] ?? key;
-		}
-
-		const rgx = new RegExp(`\\[:${lang}\\]([^\\[]+)\\[:`, 'g');
-		const fallbackRgx = new RegExp(`\\[:${config.defaultLang}\\]([^\\[]+)\\[:`, 'g');
-
-		let result = template;
-		if (template.includes(`[:${lang}]`)) {
-			const match = rgx.exec(template);
-			result = match ? match[1] : template;
-		} else if (template.includes(`[:${config.defaultLang}]`)) {
-			const match = fallbackRgx.exec(template);
-			result = match ? match[1] : template;
-		}
-
-		let replaceIndex = 0;
-		result = result.replace(/%[a-z0-9-]{1,}/g, (match) => {
-			switch (match) {
-				case '%end':
-					return '</span>';
-				case '%break':
-					return '<br />';
-				case '%s':
-					const out = String(placeholders[replaceIndex] ?? '');
-					replaceIndex = replaceIndex === Math.max(0, placeholders.length - 1) ? 0 : replaceIndex + 1;
-					return out;
-				default:
-					return `<span class="${match.substring(1)}">`;
-			}
-		});
-
-		return result;
-	}
-
-	static isSupportedLanguage(language: string) {
-		return config.supportedLanguages.includes(language) || config.defaultLang === language;
-	}
+export function createTranslator(data: TranslatorConstructor) {
+	const translator = new Translator(data);
+	globalThis.__ = (str, ...placeholders) => {
+		return translator.get(str, ...placeholders);
+	};
+	return translator;
 }

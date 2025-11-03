@@ -1,5 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage, ErrorPage, NotFoundPage, AppProvider, ErrorBoundary } from '@components';
+import { ErrorPage } from '@/components/pages/error-page.tsx';
+import { HomePage } from '@/components/pages/home-page.tsx';
+import { NotFoundPage } from '@/components/pages/not-found-page.tsx';
+import { AppProvider } from '@/components/providers/app-provider.tsx';
+import { ErrorBoundary } from '@/components/ui/error-boundary.tsx';
 import { App } from './app.tsx';
 
 export const router = createBrowserRouter([

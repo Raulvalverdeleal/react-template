@@ -1,8 +1,6 @@
-import { useTranslator } from '@/hooks/use-translator.ts';
-import { Icon } from '@components';
+import { Icon } from '@/components/ui/Icon.tsx';
 
 export function NotFoundPage() {
-	const __ = useTranslator();
 	return (
 		<div className="h-full flex flex-col items-center justify-center text-center px-4 space-y-6 my-auto">
 			<Icon name="not-found" size={40} className="text-destructive" />

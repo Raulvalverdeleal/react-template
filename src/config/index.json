@@ -1,0 +1,20 @@
+{
+    "local": {
+        "apiRoot": "http://localhost:3080/api-pre/"
+    },
+    "pre": {
+        "apiRoot": "https://example.com/api-pre/"
+    },
+    "pro": {
+        "apiRoot": "https://example.com/api/"
+    },
+    "translations": {
+        "baseLanguage": "en",
+        "supportedLanguages": [
+            "es",
+            "fr",
+            "en",
+            "it"
+        ]
+    }
+}

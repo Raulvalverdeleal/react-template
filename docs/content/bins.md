@@ -1,12 +1,5 @@
 # Bins
 
-The scripts located in the `/bin` folder follow two simple rules:
-
-- **Standalone**  
-  no external libraries, just vanilla JS in a Node environment.
-- **Simple**  
-  Easy to use and integrate into your project. Prioritize **readability**: if a command is clearer in `JS` than in `bash`, use bash.
-
 ?> All bins (except **translate**) accept the same parameters as their corresponding config properties.  
 This makes them flexible, since you don’t need to pass every argument manually — the config acts as a set of default values.  
 See how **sftp** is used for both pre-production and production deployments.
@@ -82,9 +75,21 @@ Usually you may want to keep user & host in config, so you can create multiple s
 }
 ```
 
+---
+
+## Add Icon
+
+| option    | inline parameter | alias | description                        | example                 |
+| --------- | ---------------- | ----- | ---------------------------------- | ----------------------- |
+| name      | --name           | -n    | The icon name                      | menu                    |
+| iconsPath | --icons-path     | -i    | The path to the `icons.svg` file   | `src/assets/icons.svg`  |
+| typePath  | --type-path      | -t    | The path to the `global.d.ts` file | `src/types/global.d.ts` |
+
+---
+
 ## Possibilities
 
-By combining these bins, you can automate complex workflows with minimal effort.  
+By combining these scripts, you can automate complex workflows with minimal effort.  
 The `deploy:pro` pipeline runs through the following steps:
 
 1. **Check branch**  

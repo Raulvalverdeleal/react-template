@@ -1,15 +1,14 @@
-import { mocks } from '@/assets/index.ts';
-import { ServiceOptions, SamplePayload, SampleResponse } from '@types';
-import { SuperFetch } from '@utils';
+import { SuperFetch, SuperFetchOptions } from '@/utils/classes/super-fetch.ts';
 
-export class Api extends SuperFetch {
-	constructor(options: ServiceOptions) {
-		super(options.root, options);
+class Api extends SuperFetch {
+	constructor(options: SuperFetchOptions) {
+		super(options);
 	}
 
-	doSomething(_data: SamplePayload) {
-		// return this.get<SampleResponse>("/endpoint", {searchParams: "here"});
-		// return this.post<SampleResponse>("/endpoint", {body: "here"});
-		return this.fake<SampleResponse>(mocks.responses.doSomenthing);
-	}
+	// add endpoints as methods
+	// see docs for more information
+}
+
+export function createApi(options: SuperFetchOptions) {
+	return new Api(options);
 }

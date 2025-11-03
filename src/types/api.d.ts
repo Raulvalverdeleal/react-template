@@ -2,12 +2,10 @@ export type BaseResponse<T = object> = Promise<
 	| {
 			result: 'nok';
 			message: string;
-			aborted?: boolean;
 	  }
 	| ({
 			result: 'ok';
 			message: string;
-			aborted?: boolean;
 	  } & T)
 >;
 // ---

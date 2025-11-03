@@ -1,36 +1,43 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { config, Enviroments } from '@utils';
-import { PageWrapper } from '@components';
+import { PageWrapper } from '@/components/layout/page-wrapper.tsx';
+import { usePreferences } from '@/hooks/use-preferences.ts';
 import { useEffect } from 'react';
 
 export function App() {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const preferences = usePreferences();
 
 	function onError() {
-		if (location.pathname !== '/error') {
-			navigate('/error');
+		if (location.pathname.includes('error')) {
+			return;
 		}
+		navigate('/error');
 	}
 
-	function checkEnviroment() {
-		const host = window.location.host;
-		const isLocalhost = host.includes('localhost');
-		const isPreproduction = host.includes('test'); //example: test-react-template.com
+	function subscribe() {
+		addEventListener('error', onError);
+		addEventListener('unhandledrejection', onError);
+	}
 
-		if (config.enviroment !== Enviroments.PRO && !isLocalhost && !isPreproduction) {
-			throw new Error('Invalid enviroment, should be production');
-			//send email, trigger sentry etc.
+	function unSubscribe() {
+		removeEventListener('error', onError);
+		removeEventListener('unhandledrejection', onError);
+	}
+
+	function handleLanguage() {
+		const params = new URLSearchParams(window.location.search);
+		const language = params.get('language');
+		if (language) {
+			preferences.setLang(language);
 		}
 	}
 
 	useEffect(() => {
-		addEventListener('error', onError);
-		checkEnviroment();
-		return () => {
-			removeEventListener('error', onError);
-		};
+		subscribe();
+		handleLanguage();
+		return () => unSubscribe();
 	}, []);
 
-	return <PageWrapper />;
+	return <PageWrapper key={preferences.lang} />;
 }

@@ -4,8 +4,7 @@ This project uses **TailwindCSS** for utility-first styling and includes custom 
 
 ## Theme
 
-- **TailwindCSS utilities**  
-  used everywhere for spacing, typography, colors, etc.
+- **TailwindCSS utilities**
 - **Maximum content width**  
   Applied to header, footer, and main container.
 
@@ -14,12 +13,8 @@ This project uses **TailwindCSS** for utility-first styling and includes custom 
     ```
 
 - **Layout**
-    - `#root` is a grid container with dynamic rows depending on header/footer presence.
+    - Fixed header & footer with main in between
     - Classes `.has-header` and `.has-footer` are added via React effects in Header and Footer components when mounted / unmounted.
-    - The layout adapts automatically:
-        - Only header → `auto` `1fr`
-        - Only footer → `1fr` `auto`
-        - Both → `auto` `1fr` `auto`
 
 ## Variants
 

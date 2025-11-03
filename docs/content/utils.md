@@ -2,106 +2,29 @@
 
 ## Cache manager
 
-`CacheManager` is an in-memory cache utility that manages multiple tables of cached data.  
+`CacheManager` is an in-memory cache utility that manages cached data.  
 Each entry can have an expiration time, and expired entries are automatically cleaned up on access.
 
 ### Features
 
-- Store and retrieve cached items by **table** and **key**.
+- Store and retrieve cached items by **key**.
 - Automatic expiration handling (default: **5 minutes**).
-- Add or drop entire tables dynamically.
-- Type-safe with `TableSchema`.
 
 ### Methods
 
-- `get(table: TableName, key: string | number): Tables[TableName] | undefined`
-  Retrieve an item. Returns undefined if not found or expired.
+- `get<T>(key: string): T`
+  Retrieve an item of type `T`. Returns `null` if not found or expired.
 
-- `add(table: TableName, key: string | number, item: Tables[TableName]): void`
+- `add(key: string, value: unknown)`
   Store an item with a custom defined TTL, (5min by default)
 
 ### Usage
 
 ```ts
-export const cache = new CacheManager<{
-	availability: Availabilty;
-	shifts: Shift[];
-	products: Product[];
-}>(['shifts', 'products', 'availability']);
-
-cache.add('availability', month, availabilityResponse);
-cache.get('availability', month);
+export const cache = createCache();
+cache.add(month, availabilityResponse);
+cache.get(month);
 ```
-
----
-
-## DateHelper
-
-`DateHelper` is a utility class for working with JavaScript `Date` objects in a more ergonomic and feature-rich way.  
-It abstracts common date/time operations like adding/subtracting time units, formatting, comparisons, and generating useful structures like month calendars.
-
-### Features
-
-- Supporting flexible **date construction** from strings, numbers, or `Date` objects.
-- Adding or subtracting **days, weeks, months, or years**.
-- Generating **ISO formats** (full timestamp, date-only, month-only).
-- Producing a **month matrix** (calendar grid of weeks/days with metadata).
-- Checking properties like _isWeekend_, _isToday_, _isBeforeToday_, etc.
-- Providing range generators (`day`, `week`, `month`).
-- Calculating **differences** between dates in multiple units (ms, s, m, h, d, w, months, years).
-- Stripping time, getting start/end of months, years, and weeks.
-- Comparing dates by year, month, weekday, or exact date.
-
-### Usage
-
-- Create a helper for today
-    ```ts
-    const helper = new DateHelper();
-    console.log(helper.raw); // today's Date
-    ```
-- Add or subtract units
-
-    ```ts
-    const helper = new DateHelper({ date: '2025-09-01' });
-
-    console.log(helper.addDays(5)); // 2025-09-06
-    console.log(helper.subWeeks(2)); // 2025-08-18
-    ```
-
-- Get ISO formats
-
-    ```ts
-    const helper = new DateHelper();
-
-    console.log(helper.ISO()); // 2025-09-02T12:34:56.000Z
-    console.log(helper.ISODate()); // 2025-09-02
-    console.log(helper.ISOMonth()); // 2025-09
-    ```
-
-- Month matrix (calendar grid)
-
-    ```ts
-    const helper = new DateHelper({ date: '2025-09-01', weekStart: 1 });
-    const matrix = helper.getMonthMatrix();
-
-    console.log(matrix[0][0]);
-    // -> { date: Date, isWeekend: true/false, isInCurrentMonth: true/false, ... }
-    ```
-
-- Differences
-
-    ```ts
-    const d1 = new DateHelper({ date: '2025-01-01' });
-    console.log(d1.diff('2025-09-01', 'd')); // 243 days
-    console.log(d1.diff('2024-09-01', 'y')); // 1 year
-    ```
-
-- Comparisons
-
-    ```ts
-    console.log(DateHelper.compare('2025-09-01', '2025-09-05', 'month')); // true
-    console.log(DateHelper.compare('2025-09-01', '2024-09-01', 'year')); // false
-    ```
 
 ---
 
@@ -171,47 +94,6 @@ It allows you to start, track, and clear timeouts using string tokens, preventin
 ```ts
 export const timeouts = new TimeoutsHandler();
 timeouts.set('redirect', handleRedirect, 10000);
-```
-
----
-
-## State
-
-`State` is a base class for creating application core classes with **reactive capabilities**.  
-It allows you to manage internal data, persist it to `localStorage` or `sessionStorage`, and trigger a React render function when needed.
-
-### Features
-
-- Encapsulates data with getter/setter.
-- Supports partial updates via `setData`.
-- Optional persistence via options `localStorageKey` or `sessionStorageKey`.
-- Reactive: can link a render function to trigger UI updates.
-- Extensible: create specialized classes for business logic (e.g., `User`, `Booking`).
-
-### Methods
-
-- `get data(): T`  
-   Returns a reference of the internal data.
-
-- `setData(data: Partial<T>)`  
-   Updates state with partial data and persists if any storage key is defined.
-
-- `render()`  
-   Triggers the assigned render function (set via `setRender`).
-
-- `setRender(callback: () => void)`  
-   Assigns a render callback, typically a `forceUpdate` function from React.
-
-### Usage
-
-```ts
-export class User extends State<UserData> {
-	constructor(user: Partial<UserData>, options?: StateOptions) {
-		super({ ...mocks.default.user, ...user }, options);
-	}
-
-	/* ... */
-}
 ```
 
 ---

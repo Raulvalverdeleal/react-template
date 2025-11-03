@@ -1,5 +1,5 @@
-import type { IconName } from '@types';
-import { icons } from '@assets';
+import type { IconName } from '@/types/global.d.ts';
+import icons from '@/assets/icons.svg';
 
 type IconProps = Omit<React.HTMLAttributes<HTMLSpanElement>, 'name'> & {
 	name: IconName;

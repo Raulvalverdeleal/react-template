@@ -1,7 +1,7 @@
-import { config } from '@utils';
-import { useTranslator, usePreferences } from '@hooks';
+import { usePreferences } from '@/hooks/use-preferences.ts';
+import { Icon } from '@/components/ui/Icon.tsx';
+import config from '@/config/index.json' with { type: 'json' };
 import {
-	Icon,
 	Select,
 	SelectContent,
 	SelectGroup,
@@ -9,13 +9,13 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from '@components';
+} from '@/components/ui/select.tsx';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { capitalize } from '@/utils/helpers.ts';
 
 export function Header() {
 	const preferences = usePreferences();
-	const __ = useTranslator();
 	function onSelect(lang: string) {
 		preferences.setLang(lang);
 	}
@@ -27,22 +27,22 @@ export function Header() {
 
 	return (
 		<header className="inside-wrapper border-b">
-			<div className="inside !py-2">
+			<div className="inside py-2">
 				<div className="flex items-center justify-between w-full">
 					<Link to={'/'}>
 						<Icon name={'guidelines'} size={40} />
 					</Link>
 					<Select onValueChange={onSelect} value={preferences.lang}>
-						<SelectTrigger className="w-[80px] cursor-pointer">
+						<SelectTrigger className="w-[100px] cursor-pointer">
 							<SelectValue placeholder={__('Language')} />
 						</SelectTrigger>
-						<SelectContent>
+						<SelectContent align="end">
 							<SelectGroup>
 								<SelectLabel>{__('Select a language')}</SelectLabel>
-								{config.supportedLanguages.map((language, index) => {
+								{config.translations.supportedLanguages.map((language) => {
 									return (
-										<SelectItem key={index} value={language}>
-											{language}
+										<SelectItem key={language} value={language}>
+											{capitalize(language)}
 										</SelectItem>
 									);
 								})}

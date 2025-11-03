@@ -1,38 +1,36 @@
 import { BaseResponse } from '@types';
 
-type SuperFetchOptions = {
-	token?: string | null;
-	logRequests?: boolean;
-	timeout?: number;
-	retries?: number;
-	headers?: { [key: string]: string };
-};
+export type SuperFetchOptions = {
+	root: string;
+} & Partial<{
+	log: boolean;
+	token: string | null;
+	timeout: number;
+	retries: number;
+	headers: Record<string, string>;
+}>;
 
-type RequestOptions = {
-	token?: string | null;
-	timeout?: number;
-	log?: boolean;
-	retries?: number;
-	headers?: { [key: string]: string };
-};
+type RequestOptions = Omit<SuperFetchOptions, 'root'>;
 export class SuperFetch {
 	#token: string | null;
 	#root: string;
 	#logRequests: boolean;
 	#defaultTimeout: number;
 	#defaultRetries: number;
+	#defaultHeaders: Record<string, string>;
 	#controllers: Map<string, AbortController>;
 
-	constructor(root: string, options: SuperFetchOptions = {}) {
-		if (!root || typeof root !== 'string' || !/^https?:\/\//.test(root)) {
+	constructor(options: SuperFetchOptions) {
+		if (!/^https?:\/\//.test(options.root)) {
 			throw new Error("Invalid 'root' URL provided.");
 		}
 
-		this.#root = root;
+		this.#root = options.root;
 		this.#token = options.token || null;
-		this.#logRequests = options.logRequests || false;
+		this.#logRequests = options.log || false;
 		this.#defaultTimeout = options.timeout || 0;
 		this.#defaultRetries = options.retries || 0;
+		this.#defaultHeaders = options.headers || {};
 		this.#controllers = new Map<string, AbortController>();
 	}
 
@@ -57,6 +55,7 @@ export class SuperFetch {
 				}
 
 				const baseHeaders = {
+					...(this.#defaultHeaders || {}),
 					...(this.#token ? { authorization: `Bearer ${this.#token}` } : {}),
 					...(opts.token ? { authorization: `Bearer ${opts.token}` } : {}),
 					...(opts.headers || {}),

@@ -5,15 +5,13 @@ It comes pre-configured with modern tooling and utilities to speed up developmen
 
 ## Key Features
 
-- Clean project structure with `@hooks`, `@components`, and `@services` aliases.
 - Built-in **multilanguage support**.
-- Responsive layout with `Header → Main → Footer` and smooth transitions.
+- Responsive layout with `Header → Main → Footer`.
 - Centralized **error handling** (Error Boundary + global `onError`).
-- Environment-specific configurations: `local`, `pre`, `prod`.
+- Environment-specific configurations: `local`, `pre`, `pro`.
 - Browser router with page configuration. (`secured`, `headerVisible`...)
-- Handy utilities: dates, fetch wrappers, intervals, cookies, and more.
+- Handy utilities: dates, fetch wrappers, intervals, and more.
 - Icon system via a single `icons.svg`.
-- Framework-agnostic **core classes** for the bussiness logic.
 
 ---
 
@@ -23,17 +21,15 @@ It comes pre-configured with modern tooling and utilities to speed up developmen
 
 - 1.1 Go to the repository page by clicking on the top-right link.
 - 1.2 Click on the **"Use this template"** green button ans select **Create a new repository**.
-- 1.3 Mark **Include all branches** wether you want to add docs to your project or not.
-- 1.4 Complete the rest of the fields as in any other repository.
+- 1.3 Complete the rest of the fields as in any other repository.
 
 ### 2 Clone your new repository & launch
 
 - 2.1 Clone the repo you've created by one of the three options github provides. (`https` `ssh` `GitHub CLI`)
-- 2.2 Run the following commands to launch the repository in your local machine.
+- 2.2 Run the following command to launch the repository in your local machine.
 
 ```bash
-npm install
-npm run start
+npm install && npm run start
 ```
 
 ### 3 Clean up the traces of the React template.
@@ -49,6 +45,5 @@ npm run start
 That’s it, you’re ready to go!
 
 ```bash
-git commit -am "Initial commit"
-git push
+git commit -am "Initial commit" && git push
 ```

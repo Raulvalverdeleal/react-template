@@ -17,7 +17,13 @@ export default defineConfig({
 		rollupOptions: {
 			output: {
 				manualChunks(id) {
-					if (id.includes('react')) return 'react';
+					if (id.includes('node_modules')) {
+						// -- radix
+						if (id.includes('@radix-ui')) return 'ui';
+						if (id.includes('sonner')) return 'ui';
+						// -- motion
+						if (id.includes('framer-motion')) return 'animation';
+					}
 				},
 			},
 		},

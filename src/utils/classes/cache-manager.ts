@@ -1,55 +1,46 @@
-import { CacheItem, TableSchema } from '@/types/global.js';
+class CacheManager {
+	private cache = new Map<string, { value: unknown; expiresAt: number }>();
+	private expiration: number;
 
-export class CacheManager<Tables extends TableSchema> {
-	#memory: Map<keyof Tables, Map<string | number, CacheItem<Tables[keyof Tables]>>>;
-
-	constructor(tableNames: (keyof Tables)[]) {
-		this.#memory = new Map();
-		tableNames.forEach((tableName) => this.#memory.set(tableName, new Map()));
+	constructor(expiration = 5 * 60 * 1000) {
+		this.expiration = expiration;
 	}
 
-	get memory() {
-		return this.#memory;
-	}
+	get<T>(key: string): T | null {
+		console.log(`Get cache ${String(key)}, current size: ${this.cache.size}`);
+		const entry = this.cache.get(key);
+		if (!entry) return null;
 
-	addTable<TableName extends keyof Tables>(name: TableName): void {
-		this.#memory.set(name, new Map());
-	}
-
-	dropTable<TableName extends keyof Tables>(name: TableName): void {
-		this.#memory.delete(name);
-	}
-
-	get<TableName extends keyof Tables>(table: TableName, key: string | number): Tables[TableName] | undefined {
-		const tableMap = this.#memory.get(table);
-		if (!tableMap) throw new Error(`table ${String(table)} does not exist`);
-
-		const entry = tableMap.get(key);
-		if (!entry) return undefined;
-
-		if (entry.expiresAt && Date.now() > entry.expiresAt) {
-			tableMap.delete(key);
-			return undefined;
+		if (Date.now() > entry.expiresAt) {
+			this.cache.delete(key);
+			return null;
 		}
 
-		return entry.value as Tables[TableName];
+		return entry.value as T;
 	}
 
-	add<TableName extends keyof Tables>(
-		table: TableName,
-		key: string | number,
-		item: Tables[TableName],
-		ttl?: number
-	): void {
-		const tableMap = this.#memory.get(table);
-		if (!tableMap) throw new Error(`table ${String(table)} does not exist`);
-
-		const expiresAt = ttl ?? Date.now() + 5 * 60 * 1000;
-
-		tableMap.set(key, { value: item, expiresAt });
+	set(key: string, value: unknown): void {
+		const expiresAt = Date.now() + this.expiration;
+		this.cache.set(key, { value, expiresAt });
 	}
 
-	delete<TableName extends keyof Tables>(table: TableName, key: string | number): void {
-		this.#memory.get(table)?.delete(key);
+	has(key: string): boolean {
+		return this.get(key) !== null;
 	}
+
+	delete(key: string): boolean {
+		return this.cache.delete(key);
+	}
+
+	clear(): void {
+		this.cache.clear();
+	}
+
+	get size(): number {
+		return this.cache.size;
+	}
+}
+
+export function createCache() {
+	return new CacheManager();
 }

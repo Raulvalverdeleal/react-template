@@ -1,0 +1,11 @@
+{
+	"contact": {
+		"phone": "+34 123 45 67 89",
+		"email": "example@test.test"
+	},
+	"social": {
+		"instagram": "#",
+		"linkedin": "#",
+		"github": "#"
+	}
+}

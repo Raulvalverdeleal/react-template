@@ -1,33 +1,37 @@
-import { mocks } from '@/assets/index.ts';
-import { Booking } from '@/core/booking.ts';
-import { User } from '@/core/user.ts';
-import { Api } from '@/services/api.ts';
-import { TimeoutsHandler, IntervalsHandler, Enviroments, CacheManager, getLocalStorageItem, StorageKeys } from '@utils';
+import config from '@/config/index.json' with { type: 'json' };
+import { createTranslator } from './classes/translator.ts';
+import translationsTemplate from '@/assets/translations.json' with { type: 'json' };
+import { createCache } from './classes/cache-manager.ts';
+import { createApi } from '@/services/api.ts';
 
-export const config = Object.freeze({
-	apiRoot: import.meta.env.VITE_API_ROOT,
-	enviroment: import.meta.env.VITE_APP_ENV as Enviroments,
-	defaultLang: 'en',
-	supportedLanguages: ['en', 'es', 'fr', 'it'],
-	contact: {
-		phone: '+34612345678',
-		email: 'test@test.test',
-	},
-	social: {
-		instagram: 'https://www.instagram.com/',
-		linkedin: 'https://www.linkedin.com/',
-		github: 'https://github.com/',
-	},
+// <--- enums --->
+export enum Enviroments {
+	LOCAL = 'local',
+	PRE = 'pre',
+	PRO = 'pro',
+}
+
+export enum StorageKeys {
+	USER = 'user',
+	PREFERENCES = 'preferences',
+}
+
+// <--- enviroment --->
+export const enviroment = (import.meta.env.VITE_APP_ENV as `${Enviroments}`) ?? Enviroments.LOCAL;
+console.log({ enviroment, apiRoot: config[enviroment].apiRoot });
+
+// <--- api --->
+export const api = createApi({
+	log: enviroment === Enviroments.LOCAL,
+	root: config[enviroment].apiRoot,
 });
 
-export const intervals = new IntervalsHandler();
-export const timeouts = new TimeoutsHandler();
-export const cache = new CacheManager([]);
-export const booking = new Booking(mocks.default.booking);
-export const user = new User(getLocalStorageItem(StorageKeys.USER, mocks.default.user), {
-	localStorageKey: StorageKeys.USER,
-});
-export const api = new Api({
-	logRequests: config.enviroment !== Enviroments.PRO,
-	root: `${config.apiRoot}/my-app-router`,
+// <--- cache --->
+export const cache = createCache();
+
+// <--- translator --->
+export const translator = createTranslator({
+	lang: navigator.language,
+	fallbackLang: config.translations.baseLanguage,
+	translations: translationsTemplate,
 });

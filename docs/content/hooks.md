@@ -45,8 +45,6 @@ It uses the global `AppProvider` `loading` counter and keeps things safe with pr
 
 ### Usage
 
-!> Be sure that `.end()` is called no matter what.
-
 ```tsx
 const loading = useLoading({ showToast: true });
 async function getData() {
@@ -72,38 +70,4 @@ const preferences = usePreferences();
 function onSelect(lang: string) {
 	preferences.setLang(lang);
 }
-```
-
----
-
-### useTranslator
-
-Hook to get a translation function scoped to the current app language (`preferences.lang`).
-It falls back to `config.defaultLang` if the key is missing.
-
-- `(key: TranslationKey, ...placeholders): string`
-    - `key` – translation key
-    - `placeholders` – values to replace placeholders in the translation string
-
-### Usage
-
-!> The key must match the Regex patterns defined in [/bin/translate.js](/content/bins.md#translate) so the translation system can detect it.
-
-```tsx
-const __ = useTranslator();
-return <p>{__('Hello world!')}</p>;
-```
-
-```js
-// /bin/translate.js
-const config = {
-	searchIn: 'src',
-	fileExtensions: ['ts', 'tsx'],
-	languages: ['es', 'fr', 'it'],
-	json: 'src/assets',
-	patterns: [
-		/__\([\s]{0,}"((?:\\.|[^"\\])*)"/g, //__("capture this")
-		/__\([\s]{0,}'((?:\\.|[^'\\])*)'/g, //__('capture this')
-	],
-};
 ```

@@ -15,7 +15,9 @@ function checkBranch(expectedBranch) {
 	try {
 		const currentBranch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
 		if (currentBranch !== expectedBranch) {
-			console.error(`\x1b[31m\u2718\x1b[0m Current branch ${currentBranch}, switch to ${expectedBranch} to proceed`);
+			console.error(
+				`\x1b[31m\u2718\x1b[0m Current branch ${currentBranch}, switch to ${expectedBranch} to proceed`
+			);
 			process.exit(1);
 		}
 	} catch (error) {

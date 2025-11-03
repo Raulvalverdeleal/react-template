@@ -1,5 +1,8 @@
-import { DateFormats, NumFormats } from '@types';
-import { StorageKeys } from './enums.ts';
+import type { NumFormats } from '@/types/global.d.ts';
+import { StorageKeys, translator } from '@/utils/symbols.ts';
+import { format, Locale } from 'date-fns';
+import config from '@/config/index.json' with { type: 'json' };
+import { es, enUS as en, it, fr } from 'date-fns/locale';
 
 export async function pause(ms?: number) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -48,64 +51,16 @@ export function parseNum(format: NumFormats, num: number) {
 			return number.toString().padStart(2, '0');
 	}
 }
-export const parseDate = (format: DateFormats, date: string | number | Date, utc?: boolean) => {
+
+export const parseDate = (formatString: string, date: string | number | Date, utc?: boolean) => {
 	try {
 		const dateObj = date instanceof Date ? date : new Date(date);
-		if (isNaN(dateObj.getTime())) {
-			throw new Error(`Invalid date`);
-		}
+		if (isNaN(dateObj.getTime())) throw new Error('Invalid date');
+		const locales: Record<string, Locale> = { es, en, it, fr };
+		const options = { locale: locales[translator.language] ?? locales[config.translations.baseLanguage] };
+		const localDate = utc ? new Date(dateObj.getTime() + dateObj.getTimezoneOffset() * 60000) : dateObj;
 
-		// const WEEK_DAY = utc ? dateObj.getUTCDay() : dateObj.getDay()
-		const DATE = utc ? dateObj.getUTCDate() : dateObj.getDate();
-		const MONTH = utc ? dateObj.getUTCMonth() : dateObj.getMonth();
-		const YEAR = utc ? dateObj.getUTCFullYear() : dateObj.getFullYear();
-		const HOURS = utc ? dateObj.getUTCHours() : dateObj.getHours();
-		const MINUTES = utc ? dateObj.getUTCMinutes() : dateObj.getMinutes();
-		// const SECONDS = utc ? dateObj.getUTCMinutes() : dateObj.getMinutes()
-
-		const period = HOURS > 11 ? 'p.m' : 'a.m';
-		const weekdayName = dateObj.toLocaleDateString('es', { weekday: 'long' });
-		const shortWeekdayName = dateObj.toLocaleDateString('es', { weekday: 'short' });
-		const shortMothName = dateObj.toLocaleDateString('es', { month: 'short' });
-		const mothName = dateObj.toLocaleDateString('es', { month: 'long' });
-
-		switch (format) {
-			case 'YYYY-MM-DD':
-				return `${YEAR}-${parseNum('0X', MONTH + 1)}-${parseNum('0X', DATE)}`;
-
-			case 'YYYY-MM':
-				return `${YEAR}-${parseNum('0X', MONTH + 1)}`;
-
-			case 'hh:mm A':
-				return `${parseNum('0X', HOURS)}:${parseNum('0X', MINUTES)} ${period}`;
-
-			case 'hh:mm':
-				return `${parseNum('0X', HOURS)}:${parseNum('0X', MINUTES)}`;
-
-			case 'DDD, DD MMM':
-				return `${shortWeekdayName}, ${parseNum('0X', DATE)} ${shortMothName}`;
-
-			case 'DDDD DD MMMM':
-				return `${weekdayName} ${parseNum('0X', DATE)} ${mothName}`;
-
-			case 'DDD, DD MMM / hh:mm h':
-				return `${shortWeekdayName}, ${parseNum('0X', DATE)} ${shortMothName} / ${parseNum('0X', HOURS)}:${parseNum('0X', MINUTES)} h`;
-
-			case 'MMMM YYYY':
-				return `${mothName} ${YEAR}`;
-
-			case 'MMM YY':
-				return `${shortMothName}' ${YEAR.toString().substring(2)}`;
-
-			case 'DDD':
-				return `${shortWeekdayName}`;
-
-			case "D MMM'YY":
-				return `${DATE} ${shortMothName}'${YEAR.toString().substring(2)}`;
-
-			case "D MMM'YY · hh:mm":
-				return `${parseNum('0X', DATE)} ${mothName} ${YEAR.toString()} · ${parseNum('0X', HOURS)}:${parseNum('0X', MINUTES)}`;
-		}
+		return format(localDate, formatString, options);
 	} catch (error) {
 		console.error(error);
 		return 'Invalid Date';
@@ -114,4 +69,28 @@ export const parseDate = (format: DateFormats, date: string | number | Date, utc
 
 export function normalizePhoneNumber(phoneNumber: string) {
 	return phoneNumber.replaceAll('+', '').replaceAll(/\s{1,}/g, '');
+}
+
+export function capitalize(str: string) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function copy(object: object) {
+	return JSON.parse(JSON.stringify(object));
+}
+
+export async function copyText(text: string) {
+	try {
+		await navigator.clipboard.writeText(text);
+		return true;
+	} catch (error: unknown) {
+		console.error(error);
+		return false;
+	}
+}
+
+export function stripHtml(html: string) {
+	const tmp = document.createElement('div');
+	tmp.innerHTML = html;
+	return tmp.textContent || tmp.innerText || '';
 }

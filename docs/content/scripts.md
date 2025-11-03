@@ -16,6 +16,18 @@ Serves the docs folder you are reading right now locally.
 
 ---
 
+## add:icon
+
+```bash
+npm run add:icon menu
+```
+
+?> node bin/add-icon.js --name menu
+
+pastes your clipboard content inside a `<symbol>...</symbol>` and add the `name` parameter to the symbol id & `IconName` type
+
+---
+
 ## format
 
 ```bash

@@ -6,6 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import './app.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -84,7 +85,9 @@
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
 
-	--max-width: 990px;
+	--max-width: 1120px;
+	--primary: oklch(0.205 0 0);
+	--secondary: oklch(0.97 0 0);
 }
 
 .dark {
@@ -125,30 +128,30 @@
 	* {
 		@apply border-border outline-ring/50 m-0 p-0 box-border;
 	}
+
 	body {
 		@apply overflow-hidden h-screen w-screen;
 	}
+
 	#root {
-		@apply grid min-h-dvh grid-rows-[1fr] bg-background;
+		@apply flex flex-col h-screen;
 	}
-	.has-header #root {
-		@apply grid-rows-[auto_1fr];
+
+	main {
+		@apply flex-1 overflow-y-auto;
 	}
-	.has-footer #root {
-		@apply grid-rows-[1fr_auto];
-	}
-	.has-header.has-footer #root {
-		@apply grid-rows-[auto_1fr_auto];
-	}
+
 }
 
 @layer utilities {
 	.row-between {
 		@apply w-full flex items-center justify-between;
 	}
+
 	.inside {
-		@apply max-w-(--max-width) w-full h-full p-4 flex;
+		@apply max-w-(--max-width) w-full h-full px-4;
 	}
+
 	.inside-wrapper {
 		@apply w-full flex items-center justify-center;
 	}

@@ -27,9 +27,6 @@ dist-ssr
 
 stats.html
 .env*
-!.env.local
-!.env.pre
-!.env.pro
 node_modules
 package-lock.json
 build

@@ -28,9 +28,8 @@ export function App() {
 	function handleLanguage() {
 		const params = new URLSearchParams(window.location.search);
 		const language = params.get('language');
-		if (language) {
-			preferences.setLang(language);
-		}
+		if (!language) return;
+		preferences.setLang(language);
 	}
 
 	useEffect(() => {

@@ -14,11 +14,6 @@
     "fr": "Fermer",
     "it": "Chiudere"
   },
-  "Date formatting with %s date-fns %s": {
-    "es": "Formato de fecha con %s date-fns %s",
-    "fr": "Formatage de date avec %s date-fns %s",
-    "it": "Formattazione della data con %s date-fns %s"
-  },
   "Email": {
     "es": "Correo electrónico",
     "fr": "E-mail",
@@ -28,21 +23,6 @@
     "es": "Error 404",
     "fr": "Erreur 404",
     "it": "Errore 404"
-  },
-  "Error handling": {
-    "es": "Manejo de errores",
-    "fr": "Gestion des erreurs",
-    "it": "Gestione degli errori"
-  },
-  "Fatal error": {
-    "es": "Error fatal",
-    "fr": "Erreur fatale",
-    "it": "Errore fatale"
-  },
-  "Generic error": {
-    "es": "Error genérico",
-    "fr": "Erreur générique",
-    "it": "Errore generico"
   },
   "Language": {
     "es": "Idioma",
@@ -69,30 +49,15 @@
     "fr": "Veuillez nous contacter pour plus d'informations.",
     "it": "Si prega di contattarci per ulteriori informazioni."
   },
-  "React template": {
-    "es": "Plantilla React",
-    "fr": "Template React",
-    "it": "Template React"
-  },
   "Select a language": {
     "es": "Selecciona un idioma",
     "fr": "Sélectionnez une langue",
     "it": "Seleziona una lingua"
   },
-  "Test yourself": {
-    "es": "Pruébate",
-    "fr": "Testez-vous",
-    "it": "Metti alla prova te stesso"
-  },
   "The page you are looking for does not exist. Please contact us for more information.": {
     "es": "La página que buscas no existe. Por favor, contáctanos para más información.",
     "fr": "La page que vous recherchez n'existe pas. Veuillez nous contacter pour plus d'informations.",
     "it": "La pagina che stai cercando non esiste. Si prega di contattarci per ulteriori informazioni."
-  },
-  "Translations!": {
-    "es": "¡Traducciones!",
-    "fr": "Traductions !",
-    "it": "Traduzioni!"
   },
   "Understood": {
     "es": "Entendido",

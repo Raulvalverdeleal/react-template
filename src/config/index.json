@@ -1,12 +1,15 @@
 {
     "local": {
-        "apiRoot": "http://localhost:3080/api-pre/"
+        "apiRoot": "http://localhost:3080/api-pre/",
+        "url": "*"
     },
     "pre": {
-        "apiRoot": "https://example.com/api-pre/"
+        "apiRoot": "https://example.com/api-pre/",
+        "url": "*"
     },
     "pro": {
-        "apiRoot": "https://example.com/api/"
+        "apiRoot": "https://example.com/api/",
+        "url": "https://example.com"
     },
     "translations": {
         "baseLanguage": "en",
